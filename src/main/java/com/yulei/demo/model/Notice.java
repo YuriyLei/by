@@ -14,7 +14,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "notice")
 public class Notice extends BaseEntity<Long> implements Serializable {
-
+    @Column
+    private String title;
     @Column
     private String content;
     //0:文本  1：word   2.excel
@@ -23,6 +24,14 @@ public class Notice extends BaseEntity<Long> implements Serializable {
     @Column
     private String attachment_id;
     public Notice() { }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getContent() {
         return content;

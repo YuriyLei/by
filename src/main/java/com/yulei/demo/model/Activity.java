@@ -15,6 +15,8 @@ import java.io.Serializable;
 @Table(name = "activity")
 public class Activity extends BaseEntity<Long> implements Serializable{
     @Column
+    private String title;
+    @Column
     private String content;
     //0:文本  1：word   2.excel
     @Column
@@ -26,6 +28,14 @@ public class Activity extends BaseEntity<Long> implements Serializable{
 
     public String getContent() {
         return content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setContent(String content) {

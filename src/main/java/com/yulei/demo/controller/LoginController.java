@@ -13,4 +13,8 @@ public class LoginController {
     public String login(){
         return "login";
     }
+    @RequestMapping(value = "/no")
+    public String addNo(){
+        return "admin/home";
+    }
 }
