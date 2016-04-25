@@ -15,6 +15,6 @@ public class LoginController {
     }
     @RequestMapping(value = "/no")
     public String addNo(){
-        return "admin/home";
+        return "admin/ahome";
     }
 }

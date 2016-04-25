@@ -22,7 +22,7 @@ public class Notice extends BaseEntity<Long> implements Serializable {
     @Column
     private short contentType;
     @Column
-    private String attachment_id;
+    private String attachmentId;
     public Notice() { }
 
     public String getTitle() {
@@ -49,11 +49,11 @@ public class Notice extends BaseEntity<Long> implements Serializable {
         this.contentType = contentType;
     }
 
-    public String getAttachment_id() {
-        return attachment_id;
+    public String getAttachmentId() {
+        return attachmentId;
     }
 
-    public void setAttachment_id(String attachment_id) {
-        this.attachment_id = attachment_id;
+    public void setAttachmentId(String attachmentId) {
+        this.attachmentId = attachmentId;
     }
 }

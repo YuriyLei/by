@@ -5,14 +5,11 @@ import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.NoticeRepository;
 import com.yulei.demo.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import javax.validation.Valid;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -26,9 +23,10 @@ public class NoticeController {
     private NoticeRepository noticeRepository;
     @Autowired
     private Result result;
-    @RequestMapping(value = "addNotice")
+    @RequestMapping(value = "addNotice",method = RequestMethod.POST)
     @ResponseBody
-    public Result addNotice(@PathVariable Notice notice){
+    public Result addNotice(@RequestBody Notice notice){
+        //System.out.println(notice.getContent());
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }

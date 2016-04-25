@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/pages/login.css}" rel="stylesheet"/>
+
+    <title>添加新闻</title>
+</head>
+<body>
+<div class="container">
+    <form class="form" id="addNews" >
+        <h2 class="form-heading">添加新闻</h2>
+
+        <label for="title" class="sr-only">标题</label>
+        <input type="text" id="title" class="form-control" placeholder="标题" />
+
+        <label for="contentEditor" class="sr-only">内容</label>
+        <textarea id="contentEditor"  style="width: 700px;height: 300px;"></textarea>
+
+        <input type="text" id="contentType"   class="form-control" placeholder="类型" />
+        <input type="text" id="attachmentId"   class="form-control" placeholder="附件" />
+        <button class="btn btn-lg btn-primary btn-block" id="addNewsBtn" type="button">添加</button>
+    </form>
+
+</div> <!-- /container -->
+<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/pages/ahome.js}" type="text/javascript"></script>
+<script charset="utf-8" th:src="@{/kindeditor/kindeditor-all-min.js}"></script>
+<script charset="utf-8" th:src="@{/kindeditor/lang/zh-CN.js}"></script>
+<script>
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#contentEditor');
+    });
+</script>
+</body>
+</html>
