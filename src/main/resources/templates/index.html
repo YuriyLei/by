@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>学院首页</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/pages/index.css}" rel="stylesheet"/>
+
+</head>
+<body>
+    <div th:each="notice: ${noticeList}">
+        <li><a th:href="@{/notice/readOne/{id}(id=${notice.id})}" th:data-id="${notice.id}" th:text="${notice.title}"></a></li>
+    </div>
+</body>
+<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/pages/index.js}" type="text/javascript"></script>
+</html>

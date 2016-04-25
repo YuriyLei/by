@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <application xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6">
   <initialize-in-order>true</initialize-in-order>
+  <module>
+    <ejb>application.properties</ejb>
+  </module>
+  <module>
+    <ejb>logback.xml</ejb>
+  </module>
   <library-directory>APP-INF/lib</library-directory>
 </application>

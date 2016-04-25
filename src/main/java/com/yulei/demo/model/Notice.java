@@ -20,7 +20,7 @@ public class Notice extends BaseEntity<Long> implements Serializable {
     private String content;
     //0:文本  1：word   2.excel
     @Column
-    private short contentType;
+    private int contentType;
     @Column
     private String attachmentId;
     public Notice() { }
@@ -41,11 +41,11 @@ public class Notice extends BaseEntity<Long> implements Serializable {
         this.content = content;
     }
 
-    public short getContentType() {
+    public int getContentType() {
         return contentType;
     }
 
-    public void setContentType(short contentType) {
+    public void setContentType(int contentType) {
         this.contentType = contentType;
     }
 

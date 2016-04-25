@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>上传新闻</title>
+</head>
+<body>
+<form th:action="@{/notice/uploadNotice}" method="post" enctype ="multipart/form-data" >
+    <input id="file"  name="upLoadFile" type="file" />
+    <input type="submit" name="uploadFileBtn" value="上传" id="uploadFileBtn" />
+</form>
+</body>
+</html>
