@@ -20,7 +20,7 @@ public class Activity extends BaseEntity<Long> implements Serializable{
     private String content;
     //0:文本  1：word   2.excel
     @Column
-    private Short contentType;
+    private int contentType;
     @Column
     private String attachment_id;
 
@@ -42,11 +42,11 @@ public class Activity extends BaseEntity<Long> implements Serializable{
         this.content = content;
     }
 
-    public Short getContentType() {
+    public int getContentType() {
         return contentType;
     }
 
-    public void setContentType(Short contentType) {
+    public void setContentType(int contentType) {
         this.contentType = contentType;
     }
 

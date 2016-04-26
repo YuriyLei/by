@@ -40,7 +40,13 @@ public class NoticeController {
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }
-
+    @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addNoticeWithAttachment(@RequestBody Notice notice,@PathVariable("shortId") String shortId){
+        System.out.println(shortId);
+        result.setStatus(noticeService.saveNoticeWithAttachment(notice,shortId)!=null?1:0);
+        return result;
+    }
     @RequestMapping(value = "uploadNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
@@ -52,10 +58,13 @@ public class NoticeController {
             //再将request中的数据转化成multipart类型的数据
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
             Iterator iter = multiRequest.getFileNames();
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM");
+            SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy");
             while (iter.hasNext()) {
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
                 MultipartFile file = multiRequest.getFile((String) iter.next());
-                String pathDir = "/upload/news/"+ dateformat.format(new Date());
+                String pathDir = String.format("/upload/noticeNews/" + dateformat2.format(new Date()) +"/"+ dateformat1.format(new Date()) );
                 /**得到保存目录的真实路径**/
                 String realPathDir = request.getSession().getServletContext().getRealPath(pathDir);
                 /**根据真实路径创建目录**/

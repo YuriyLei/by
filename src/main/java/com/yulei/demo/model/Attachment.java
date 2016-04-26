@@ -17,7 +17,10 @@ public class Attachment extends BaseEntity<Long> implements Serializable{
     private String attachmentName;
     @Column
     private String attachmentAddress;
-
+    @Column
+    private String shortId;
+    @Column Long newsId;
+    @Column int type;//1:notice;2:activity;3:important
     public Attachment(){}
 
     public String getAttachmentName() {
@@ -34,5 +37,29 @@ public class Attachment extends BaseEntity<Long> implements Serializable{
 
     public void setAttachmentAddress(String attachmentAddress) {
         this.attachmentAddress = attachmentAddress;
+    }
+
+    public String getShortId() {
+        return shortId;
+    }
+
+    public void setShortId(String shortId) {
+        this.shortId = shortId;
+    }
+
+    public Long getNewsId() {
+        return newsId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setNewsId(Long newsId) {
+        this.newsId = newsId;
     }
 }

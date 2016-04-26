@@ -1,6 +1,10 @@
 package com.yulei.demo.controller;
 
+import com.yulei.demo.model.Activity;
+import com.yulei.demo.model.Important;
 import com.yulei.demo.model.Notice;
+import com.yulei.demo.repository.ActivityRepository;
+import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
@@ -18,7 +22,10 @@ import java.util.List;
 public class LoginController {
     @Autowired
     private NoticeRepository noticeRepository;
-
+    @Autowired
+    private ImportantRepository importantRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
     @RequestMapping(value = "/home")
     public String home(Model model){
         List<Notice> noticesList= noticeRepository.findTopTen();
@@ -33,8 +40,27 @@ public class LoginController {
     public String addNo(){
         return "admin/ahome";
     }
-    @RequestMapping(value = "/upf")
+    @RequestMapping(value = "/upNo")
     public String upNo(){
         return "admin/uploadNotice";
+    }
+    @RequestMapping(value = "/upAc")
+    public String upAc(){
+        return "admin/uploadActivity";
+    }
+    @RequestMapping(value = "/upIm")
+    public String upIm(){
+        return "admin/uploadImportant";
+    }
+
+    @RequestMapping(value = "/test")
+    public String test(Model model){
+        List<Notice> noticesList= noticeRepository.findTopTen();
+        List<Important> importantList= importantRepository.findTopTen();
+        List<Activity> activityList= activityRepository.findTopTen();
+        model.addAttribute("noticeList",noticesList);
+        model.addAttribute("importantList",importantList);
+        model.addAttribute("activityList",activityList);
+        return "test";
     }
 }

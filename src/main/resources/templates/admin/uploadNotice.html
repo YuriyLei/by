@@ -2,12 +2,56 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>上传新闻</title>
+    <title>上传新闻 | 通知公告</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/fileinput.min.css}" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<form th:action="@{/notice/uploadNotice}" method="post" enctype ="multipart/form-data" >
-    <input id="file"  name="upLoadFile" type="file" />
-    <input type="submit" name="uploadFileBtn" value="上传" id="uploadFileBtn" />
-</form>
+    <form ><!--th:action="@{/notice/uploadNotice}" method="post" enctype ="multipart/form-data" -->
+        <h1>上传通知公告</h1>
+        <input id="file"  name="upLoadFile" type="file" th:multiple="10" />
+    </form>
+    <p>注意事项：</p>
+    <p>1.上传的word文档的名称作为公告的标题</p>
+    <p>2.一次最多10个word文档</p>
+    <p>3.如果公告有附件请点击<a target="_blank" th:href="@{/a/upNo}">单个信息添加页</a></p>
 </body>
+<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<!--当需要看缩略图的时候-->
+<!--<script th:src="@{/js/plugins/canvas-to-blob.min.js}" type="text/javascript" ></script>-->
+<script th:src="@{/js/fileinput.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/fileinput_locale_zh.js}"></script>
+<script>
+    $(function(){
+        $('#file').fileinput({
+            uploadUrl: '../../notice/uploadNotice', //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png','doc','docx','pdf','xls','xlsx'],//接收的文件后缀
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: true,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            //maxFileCount: 10, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            //previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            //msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+        });
+        //导入文件上传完成之后的事件
+        $("#file").on("fileuploaded", function (event, data, previewId, index) {
+            console.log(data);
+            var result = data.response;
+            if (result.status == 1) {
+
+            }
+
+        });
+    });
+</script>
 </html>
