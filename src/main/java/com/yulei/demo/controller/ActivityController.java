@@ -3,13 +3,12 @@ package com.yulei.demo.controller;
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Activity;
 import com.yulei.demo.model.Important;
+import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -77,6 +76,22 @@ public class ActivityController {
                 }
             }
         }
+        return result;
+    }
+
+
+    @RequestMapping(value = "addActivity",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addNotice(@RequestBody Activity activity){
+        //System.out.println(notice.getContent());
+        result.setStatus(activityRepository.save(activity)!=null?1:0);
+        return result;
+    }
+    @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
+    @ResponseBody
+        public Result addActivityWithAttachment(@RequestBody Activity activity,@PathVariable("shortId") String shortId){
+        System.out.println(shortId);
+        result.setStatus(activityService.saveActivityWithAttachment(activity,shortId)!=null?1:0);
         return result;
     }
 }

@@ -16,7 +16,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Autowired
     private AttachmentRepository attachmentRepository;
 
-    public void updataNoticeId(List<Attachment> attachmentList, long newsId,int type) {
+    public void updataNewsId(List<Attachment> attachmentList, long newsId,int type) {
         for (Attachment attachment:attachmentList) {
             attachment.setNewsId(newsId);
             attachment.setType(type);

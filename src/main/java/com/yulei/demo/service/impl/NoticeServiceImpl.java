@@ -32,7 +32,7 @@ public class NoticeServiceImpl implements NoticeService {
         sb.deleteCharAt(sb.toString().length()-1);
         notice.setAttachmentId(sb.toString());
         notice = noticeRepository.save(notice);
-        attachmentService.updataNoticeId(list,notice.getId(),1);
+        attachmentService.updataNewsId(list,notice.getId(),1);
         return notice;
     }
 }

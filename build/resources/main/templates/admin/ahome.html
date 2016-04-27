@@ -12,6 +12,23 @@
     <form class="form" id="addNews" >
         <h2 class="form-heading" style="margin: 0 auto;text-align: center">添加新闻</h2>
 
+        <div>
+            <label for="newsType" id="warning" style="font-size: 20px;">类别</label>
+        </div>
+        <div>
+            <div id="newsType" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="important" autocomplete="off" />学院新闻
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="notice" autocomplete="off" /> 通知公告
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="activity" autocomplete="off"/> 学生活动
+                </label>
+            </div>
+        </div>
+        <div class="alert alert-danger" style="display: none;" role="alert" id="notTypeWarning">请选择新闻类型！</div>
         <label for="title" STYLE="font-size: 20px;">标题</label>
         <input type="text" id="title" class="form-control" placeholder="标题" />
 
@@ -24,6 +41,7 @@
         <input type="hidden" id="shortId"/>
         <br/><br/>
         <button class="btn btn-lg btn-primary btn-block" id="addNewsBtn" type="button">添加</button>
+        <a href="#warning" id="aWarning" style="display: none">w</a>
     </form>
 
 </div> <!-- /container -->

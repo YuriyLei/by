@@ -37,16 +37,44 @@ $(function () {
     $("#addNewsBtn").click(function(){
         addNews();
     });
-
+    // $("#newsType").click(function(){
+    //     var nowBtn = $(this).
+    // });
 })
 
 function addNews() {
-    var url = "../../notice/addNotice";
+    var label = $("#newsType").find(".active");
+    var type= label.find("input").attr("id")
+    var entype="" ;
+    var enDaType = "";
+    if(type=="important"){
+        entype = "important";
+        enDaType = "Important"
+    }else if(type=="activity"){
+        entype = "activity";
+        enDaType = "Activity"
+    }else if(type=="notice"){
+        entype = "notice";
+        enDaType = "Notice"
+    }else{
+        console.log("show");
+        $("#notTypeWarning").show();
+        //document.getElementById("#newsType").scrollIntoView();
+        document.getElementById("aWarning").click();
+        //$("#aWarning").click();//这个只能出发点击，不能跳转
+        setInterval(function(){
+            $("notTypeWarning").css("display","none");
+        },3000);
+
+        return;
+    }
+
+    var url = "../../"+entype+"/add"+enDaType;
     var content = window.editor.html();//$("#contentEditor")
     var title = $("#title").val();
     var shortId = $("#shortId").val();
     if(shortId){
-        url = "../../notice/addNoticeWithAttachment/"+shortId;
+        url = "../../"+entype+"/add"+enDaType+"WithAttachment/"+shortId;
     }
     var contentType = $("#contentType").val();
     var notice =JSON.stringify({
@@ -63,7 +91,8 @@ function addNews() {
         dataType: "json",
         success: function (result) {
             if (result.status == 1) {
-                location.reload();
+                console.log("1");
+                //location.reload();
             }else{
                 alert("添加失败");
             }

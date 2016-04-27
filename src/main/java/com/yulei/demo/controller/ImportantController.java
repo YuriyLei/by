@@ -8,9 +8,7 @@ import com.yulei.demo.service.ImportantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -78,6 +76,21 @@ public class ImportantController {
                 }
             }
         }
+        return result;
+    }
+
+    @RequestMapping(value = "addImportant",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addImportant(@RequestBody Important important){
+        //System.out.println(notice.getContent());
+        result.setStatus(importantRepository.save(important)!=null?1:0);
+        return result;
+    }
+    @RequestMapping(value = "addImportantWithAttachment/{shortId}",method = RequestMethod.POST)
+    @ResponseBody
+    public Result addNoticeWithAttachment(@RequestBody Important important,@PathVariable("shortId") String shortId){
+        System.out.println(shortId);
+        result.setStatus(importantService.saveImportantWithAttachment(important,shortId)!=null?1:0);
         return result;
     }
 }
