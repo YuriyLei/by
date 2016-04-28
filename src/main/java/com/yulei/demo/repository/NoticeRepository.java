@@ -11,7 +11,7 @@ import java.util.List;
  * Created by lei.yu on 2016/4/22.
  */
 public interface NoticeRepository extends BaseRepository<Notice,Long> {
-    @Query(value = "select n.title,n.created_at from notice n where n.deleted=0 order by n.created_at desc limit 0,10",nativeQuery = true)
+    @Query(value = "select * from notice n where n.deleted=0 order by n.created_at desc limit 0,10",nativeQuery = true)
     List<Notice> findTopTen();
 
 }
