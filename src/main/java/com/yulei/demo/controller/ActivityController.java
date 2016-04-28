@@ -8,6 +8,7 @@ import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -93,5 +94,17 @@ public class ActivityController {
         System.out.println(shortId);
         result.setStatus(activityService.saveActivityWithAttachment(activity,shortId)!=null?1:0);
         return result;
+    }
+    /**
+     * 根据请求id，读取一条新闻
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="readOne/{id}")
+    public String readOneNews(@PathVariable long id, Model model){
+        Activity activity = activityService.findOne(id);
+        model.addAttribute("activity",activity);
+        return "showNews";
     }
 }

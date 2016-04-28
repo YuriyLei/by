@@ -7,4 +7,6 @@ import com.yulei.demo.model.Activity;
  */
 public interface ActivityService {
     Activity saveActivityWithAttachment(Activity activity, String shortId);
+
+    Activity findOne(long id);
 }

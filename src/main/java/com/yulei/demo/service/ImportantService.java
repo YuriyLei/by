@@ -7,4 +7,7 @@ import com.yulei.demo.model.Important;
  */
 public interface ImportantService {
     Important saveImportantWithAttachment(Important important, String shortId);
+
+    Important findOne(long id);
+
 }

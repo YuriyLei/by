@@ -7,4 +7,6 @@ import com.yulei.demo.model.Notice;
  */
 public interface NoticeService {
     Notice saveNoticeWithAttachment(Notice notice,String string);
+
+    Notice findOne(long id);
 }

@@ -1,7 +1,9 @@
 package com.yulei.demo.service.impl;
 
+import com.yulei.demo.common.WordToHtml;
 import com.yulei.demo.model.Activity;
 import com.yulei.demo.model.Attachment;
+import com.yulei.demo.model.Important;
 import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.repository.AttachmentRepository;
@@ -35,6 +37,18 @@ public class ActivityServiceImpl implements ActivityService{
         activity.setAttachmentId(sb.toString());
         activity = activityRepository.save(activity);
         attachmentService.updataNewsId(list,activity.getId(),2);
+        return activity;
+    }
+
+    public Activity findOne(long id) {
+        Activity activity = activityRepository.findOne(id);
+        if(activity.getContentType()==1){
+            try {
+                activity.setContent(new WordToHtml().getWordAndStyle("E:\\demo\\src\\main\\webapp" + activity.getContent()));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
         return activity;
     }
 }

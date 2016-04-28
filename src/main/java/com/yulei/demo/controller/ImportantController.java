@@ -8,6 +8,7 @@ import com.yulei.demo.service.ImportantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -92,5 +93,18 @@ public class ImportantController {
         System.out.println(shortId);
         result.setStatus(importantService.saveImportantWithAttachment(important,shortId)!=null?1:0);
         return result;
+    }
+
+    /**
+     * 根据请求id，读取一条新闻
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="readOne/{id}")
+    public String readOneNews(@PathVariable long id, Model model){
+        Important important = importantService.findOne(id);
+        model.addAttribute("important",important);
+        return "showNews";
     }
 }

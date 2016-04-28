@@ -33,6 +33,12 @@ public class NoticeController {
     private NoticeRepository noticeRepository;
     @Autowired
     private Result result;
+
+    /**
+     * 添加通知公告
+     * @param notice
+     * @return Json
+     */
     @RequestMapping(value = "addNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Notice notice){
@@ -40,6 +46,13 @@ public class NoticeController {
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }
+
+    /**
+     * 添加通知公告，带附件id
+     * @param notice
+     * @param shortId
+     * @return
+     */
     @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Notice notice,@PathVariable("shortId") String shortId){
@@ -47,6 +60,15 @@ public class NoticeController {
         result.setStatus(noticeService.saveNoticeWithAttachment(notice,shortId)!=null?1:0);
         return result;
     }
+
+    /**
+     * 上传word文档，通知公告
+     * @param request
+     * @param response
+     * @return Json
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @RequestMapping(value = "uploadNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
@@ -92,11 +114,25 @@ public class NoticeController {
         }
         return result;
     }
+
+    /**
+     * 根据请求id，读取一条新闻
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
-        model.addAttribute("notice",noticeRepository.findOne(id));
+        Notice notice = noticeService.findOne(id);
+        model.addAttribute("notice",notice);
         return "showNews";
     }
+
+    /**
+     * 暂未使用
+     * @param id
+     * @return
+     */
     @RequestMapping(value="getOne/{id}")
     @ResponseBody
     public Result getOne(@PathVariable long id){

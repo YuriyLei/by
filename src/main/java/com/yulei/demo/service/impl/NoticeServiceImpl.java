@@ -1,5 +1,6 @@
 package com.yulei.demo.service.impl;
 
+import com.yulei.demo.common.WordToHtml;
 import com.yulei.demo.model.Attachment;
 import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.AttachmentRepository;
@@ -33,6 +34,20 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setAttachmentId(sb.toString());
         notice = noticeRepository.save(notice);
         attachmentService.updataNewsId(list,notice.getId(),1);
+        return notice;
+    }
+
+    public Notice findOne(long id) {
+        Notice notice = noticeRepository.findOne(id);
+        if (notice.getContentType()==1){
+            String fileName = "E:\\demo\\src\\main\\webapp"+notice.getContent();
+            try {
+                String str = new WordToHtml().getWordAndStyle(fileName);
+                notice.setContent(str);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
         return notice;
     }
 }
