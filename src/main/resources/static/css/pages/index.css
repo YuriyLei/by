@@ -1,2 +1,4 @@
 *{margin:0;padding:0;}
-body{width:80%;margin:0 auto;}
+body{width:100%;margin:0 auto;}
+.aMoreNews{text-underline: none;color:#fff;margin-left:75%;margin-right:5px;font-size: 14px;}
+.aMoreNews:hover{text-decoration: none;color:#942a25;}

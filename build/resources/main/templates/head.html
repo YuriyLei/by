@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/bootstrap-combined.min.css}" rel="stylesheet" />
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="page-header">
+                <h1>
+                    软件学院<small>重庆邮电大学</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a id="mycontrol" class="btn btn-navbar"  data-target="#mycollapse" data-toggle="collapse">
+                            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="#">软件学院</a>
+                        <div class="collapse nav-collapse"  id="mycollapse">
+                            <ul class="nav">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">学院概况</a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">专业介绍</a></li>
+                                        <li><a href="#">整体概括</a></li>
+                                        <li><a href="#">组织架构</a></li>
+                                        <li><a href="#">规章制度</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">学院动态</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">学院新闻</a></li>
+                                        <li><a href="#">师生风采</a></li>
+                                        <li><a href="#">科研动态</a></li>
+                                        <li><a href="#">教学动态</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">本科教育</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">专业建设</a></li>
+                                        <li><a href="#">课程建设</a></li>
+                                        <li><a href="#">教学管理</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">研究生</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">研究生概况</a></li>
+                                        <li><a href="#">培养方案</a></li>
+                                        <li><a href="#">研究生管理</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">科研工作</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">科研概况</a></li>
+                                        <li><a href="#">科研管理</a></li>
+                                        <li><a href="#">学术交流</a></li>
+                                        <li><a href="#">项目与成果</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">学生之家</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">学生活动</a></li>
+                                        <li><a href="#">日常管理</a></li>
+                                        <li><a href="#">评奖评优</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">招生就业</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">招生信息</a></li>
+                                        <li><a href="#">就业前景</a></li>
+                                        <li><a href="#">就业情况</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">通知公告</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">事务通知</a></li>
+                                        <li><a href="#">公示</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <p class="navbar-inverse">
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $(function(){
+        $('.dropdown-toggle').dropdown()
+        $("#mycollapse").collapse();
+        $("#mycontrol").click(function(){
+            console.log(1);
+            $("#mycollapse").css("display","block");
+            $("#mycollapse").collapse("toggle");
+        })
+    })
+</script>
+</html>

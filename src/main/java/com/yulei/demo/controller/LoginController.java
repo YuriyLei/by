@@ -29,7 +29,11 @@ public class LoginController {
     @RequestMapping(value = "/home")
     public String home(Model model){
         List<Notice> noticesList= noticeRepository.findTopTen();
+        List<Important> importantList= importantRepository.findTopTen();
+        List<Activity> activityList= activityRepository.findTopTen();
         model.addAttribute("noticeList",noticesList);
+        model.addAttribute("activityList",activityList);
+        model.addAttribute("importantList",importantList);
         return "index";
     }
     @RequestMapping(value = "/lo")

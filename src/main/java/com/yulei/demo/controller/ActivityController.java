@@ -71,6 +71,7 @@ public class ActivityController {
                     //保存记录
                     Activity activity = new Activity();
                     activity.setTitle(fileName);
+                    activity.setType(2);
                     activity.setContentType(1);
                     activity.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=activityRepository.save(activity)?1:0);
@@ -84,14 +85,14 @@ public class ActivityController {
     @RequestMapping(value = "addActivity",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Activity activity){
-        //System.out.println(notice.getContent());
+        activity.setType(2);
         result.setStatus(activityRepository.save(activity)!=null?1:0);
         return result;
     }
     @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
         public Result addActivityWithAttachment(@RequestBody Activity activity,@PathVariable("shortId") String shortId){
-        System.out.println(shortId);
+        activity.setType(2);
         result.setStatus(activityService.saveActivityWithAttachment(activity,shortId)!=null?1:0);
         return result;
     }

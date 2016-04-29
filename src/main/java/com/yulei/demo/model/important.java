@@ -17,6 +17,8 @@ public class Important extends BaseEntity<Long> implements Serializable{
     @Column
     private String title;
     @Column
+    public int type;
+    @Column
     private String content;
     //0:文本  1：word   2.excel
     @Column
@@ -52,6 +54,14 @@ public class Important extends BaseEntity<Long> implements Serializable{
 
     public String getAttachmentId() {
         return attachmentId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setAttachmentId(String attachmentId) {

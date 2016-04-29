@@ -71,6 +71,7 @@ public class ImportantController {
                     //保存记录
                     Important important = new Important();
                     important.setTitle(fileName);
+                    important.setType(3);
                     important.setContentType(1);
                     important.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=importantRepository.save(important)?1:0);
@@ -83,14 +84,14 @@ public class ImportantController {
     @RequestMapping(value = "addImportant",method = RequestMethod.POST)
     @ResponseBody
     public Result addImportant(@RequestBody Important important){
-        //System.out.println(notice.getContent());
+        important.setType(3);
         result.setStatus(importantRepository.save(important)!=null?1:0);
         return result;
     }
     @RequestMapping(value = "addImportantWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Important important,@PathVariable("shortId") String shortId){
-        System.out.println(shortId);
+        important.setType(3);
         result.setStatus(importantService.saveImportantWithAttachment(important,shortId)!=null?1:0);
         return result;
     }
@@ -104,7 +105,7 @@ public class ImportantController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Important important = importantService.findOne(id);
-        model.addAttribute("important",important);
+        model.addAttribute("news",important);
         return "showNews";
     }
 }

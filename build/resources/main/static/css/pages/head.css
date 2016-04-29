@@ -1,0 +1,62 @@
+.mynav .navbar-brand {
+    display: none;
+}
+.mynav .navbar-collapse {
+    padding: 0 !important;
+}
+
+.mynav-collapse .navbar-header {
+    float: none;
+}
+.mynav-collapse .navbar-brand,
+.mynav-collapse .navbar-toggle {
+    display: block !important;
+}
+.equina-collapse .navbar-collapse {
+    border-top: 1px solid #e7e7e7 !important;
+}
+.mynav-collapse .navbar-collapse.collapse {
+    display: none !important;
+}
+.mynav-collapse .navbar-nav {
+    float: none !important;
+    margin: 0 !important;
+}
+.mynav-collapse .navbar-nav > li {
+    width: auto !important;
+    float: none !important;
+}
+.mynav-collapse .navbar-nav > li > a {
+    text-align: left !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.mynav-collapse .navbar-collapse,
+.mynav-collapse .navbar-collapse.collapse.in {
+    border-top: 1px solid #e7e7e7 !important;
+    display: block !important;
+}
+.mynav-collapse .collapsing {
+    overflow: hidden !important;
+}
+.mynav-collapse .dropdown-toggle {
+    background-color: #e7e7e7 !important;
+}
+.mynav-collapse .dropdown-toggle > .caret {
+    display: inline-block !important;
+}
+.mynav-collapse .dropdown-menu {
+    background: none !important;
+    float: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    position: relative !important;
+}
+.mynav-collapse .navbar-nav .open .dropdown-menu {
+    display: block !important;
+}
+.mynav-collapse .navbar-nav .open .dropdown-menu > li > a,
+.mynav-collapse .navbar-nav .open .dropdown-menu .dropdown-header {
+    color: #777 !important;
+    padding: 5px 15px 5px 25px !important;
+}

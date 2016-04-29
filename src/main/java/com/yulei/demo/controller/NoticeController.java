@@ -42,7 +42,7 @@ public class NoticeController {
     @RequestMapping(value = "addNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Notice notice){
-        //System.out.println(notice.getContent());
+        notice.setType(1);
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }
@@ -56,7 +56,7 @@ public class NoticeController {
     @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Notice notice,@PathVariable("shortId") String shortId){
-        System.out.println(shortId);
+        notice.setType(1);
         result.setStatus(noticeService.saveNoticeWithAttachment(notice,shortId)!=null?1:0);
         return result;
     }
@@ -107,6 +107,7 @@ public class NoticeController {
                     Notice notice = new Notice();
                     notice.setTitle(fileName);
                     notice.setContentType(1);
+                    notice.setType(1);
                     notice.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=noticeRepository.save(notice)?1:0);
                 }
@@ -124,7 +125,7 @@ public class NoticeController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Notice notice = noticeService.findOne(id);
-        model.addAttribute("notice",notice);
+        model.addAttribute("news",notice);
         return "showNews";
     }
 
