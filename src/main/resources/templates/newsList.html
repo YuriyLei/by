@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>新闻阅览页</title>
-
+    <title>新闻列表</title>
 </head>
 <body>
 <div th:include="/head"></div>
@@ -28,13 +27,34 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <h3 id="title" th:object="${news}" th:utext="*{title}" style="text-align: center"></h3>
-                    <div id="news" th:object="${news}" th:utext="*{content}"></div>
+                    <div class="list-group" style="width: 100%;">
+                        <div  th:with="condition=${(news.type)==3}">
+                            <div th:if="${condition}" >
+                                <div th:each="important: ${newsList}">
+                                    <a class="list-group-item" th:href="@{/important/readOne/{id}(id=${important.id})}" th:text="${important.title}"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div  th:with="condition=${(news.type)==1}">
+                            <div th:if="${condition}" >
+                                <div th:each="notice: ${newsList}">
+                                    <a class="list-group-item" th:href="@{/notice/readOne/{id}(id=${notice.id})}" th:text="${notice.title}"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div  th:with="condition=${(news.type)==2}">
+                            <div th:if="${condition}" >
+                                <div th:each="activity: ${newsList}">
+                                    <a class="list-group-item" th:href="@{/activity/readOne/{id}(id=${activity.id})}" th:text="${activity.title}"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<link th:href="@{/css/pages/showNews.css}" rel="stylesheet"/>
+<link th:href="@{/css/pages/newsList.css}" rel="stylesheet"/>
 </body>
 </html>

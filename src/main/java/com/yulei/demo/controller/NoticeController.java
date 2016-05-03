@@ -5,6 +5,7 @@ import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.NoticeRepository;
 import com.yulei.demo.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -140,5 +141,18 @@ public class NoticeController {
         result.setStatus(1);
         result.setObject(noticeRepository.findOne(id));
         return result;
+    }
+
+    /**
+     * 获取分页排序的notice列表
+     * @param model
+     * @param pageable
+     * @return
+     */
+    @RequestMapping(value = "/newsListShow")
+    public String newsList(Model model,Pageable pageable){
+        System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
+        model.addAttribute("noticeList", noticeRepository.findAll(pageable));
+        return "newsList";
     }
 }

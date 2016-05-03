@@ -7,9 +7,11 @@ import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -57,14 +59,23 @@ public class LoginController {
         return "admin/uploadImportant";
     }
 
-    @RequestMapping(value = "/test")
-    public String test(Model model){
-        List<Notice> noticesList= noticeRepository.findTopTen();
-        List<Important> importantList= importantRepository.findTopTen();
-        List<Activity> activityList= activityRepository.findTopTen();
-        model.addAttribute("noticeList",noticesList);
-        model.addAttribute("importantList",importantList);
-        model.addAttribute("activityList",activityList);
-        return "test";
+    @RequestMapping(value = "/newsListShow/{type}")
+    public String newsList(@PathVariable int type, Model model,Pageable pageable){
+        System.out.println(type);
+        System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
+        if(type==1){
+            model.addAttribute("newsList", noticeRepository.findAll(pageable));
+        }
+        if(type==2){
+            model.addAttribute("newsList", activityRepository.findAll(pageable));
+        }
+        if(type==3){
+            model.addAttribute("newsList", importantRepository.findAll(pageable));
+        }
+        return "newsList";
+    }
+    @RequestMapping(value = "/testNav")
+    public String testNav(){
+        return "testNav";
     }
 }
