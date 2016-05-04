@@ -35,6 +35,8 @@ public class User extends BaseEntity<Long> implements Serializable{
     @Column
     private String degree;
     @Column
+    private String sector;
+    @Column
     private String jobTitle;
     @Column
     private short year;
@@ -134,5 +136,13 @@ public class User extends BaseEntity<Long> implements Serializable{
 
     public void setYear(short year) {
         this.year = year;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 }

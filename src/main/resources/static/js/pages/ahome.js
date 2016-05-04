@@ -92,7 +92,7 @@ function addNews() {
         success: function (result) {
             if (result.status == 1) {
                 console.log("1");
-                //location.reload();
+                location.reload();
             }else{
                 alert("添加失败");
             }

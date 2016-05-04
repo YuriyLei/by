@@ -11,30 +11,53 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row-fluid">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="list-group" style="width: 100%;">
-                        <div  th:with="condition=${(news.type)==3}">
-                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/important/importantList/}">学院新闻</a>
-                            <a th:unless="${condition}" class="list-group-item" th:href="@{/important/importantList/}">学院新闻</a>
+                        <div  th:with="condition=${news.type eq 3}">
+                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/important/newsListShow(page=0,size=20,sort='createdAt,desc')}">学院新闻</a>
+                            <a th:unless="${condition}" class="list-group-item" th:href="@{/important/newsListShow(page=0,size=20,sort='createdAt,desc')}">学院新闻</a>
                         </div>
                         <div  th:with="condition=${(news.type)==1}">
-                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/important/importantList/}">通知公告</a>
-                            <a th:unless="${condition}" class="list-group-item" th:href="@{/important/importantList/}">通知公告</a>
+                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/notice/newsListShow(page=0,size=20,sort='createdAt,desc')}">通知公告</a>
+                            <a th:unless="${condition}" class="list-group-item" th:href="@{/notice/newsListShow(page=0,size=20,sort='createdAt,desc')}">通知公告</a>
                         </div>
                         <div  th:with="condition=${(news.type)==2}">
-                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/important/importantList/}">学生活动</a>
-                            <a th:unless="${condition}" class="list-group-item" th:href="@{/important/importantList/}">学生活动</a>
+                            <a th:if="${condition}" th:classappend="active" class="list-group-item" th:href="@{/activity/newsListShow(page=0,size=20,sort='createdAt,desc')}">学生活动</a>
+                            <a th:unless="${condition}" class="list-group-item" th:href="@{/activity/newsListShow(page=0,size=20,sort='createdAt,desc')}">学生活动</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <h3 id="title" th:object="${news}" th:utext="*{title}" style="text-align: center"></h3>
-                    <div id="news" th:object="${news}" th:utext="*{content}"></div>
+                <div class="col-md-8">
+                    <div class="newsContentDiv">
+                        <h3 id="title" th:object="${news}" th:utext="*{title}" style="text-align: center"></h3>
+                        <div id="news" th:object="${news}" th:utext="*{content}"></div>
+                        <div class="nameOn">
+                            <div id="author" th:object="${user}" >
+                                <div th:utext="*{sector}"></div>
+                            </div>
+                            <div id="datetime" th:object="${news}" >
+                                <div th:utext="*{createdAt}"></div>
+                            </div>
+                        </div>
+                        <div id="attach" th:if="${news.attachmentId != null}" >
+                            <h3>附件</h3>
+                            <div th:each="attachment:${attachmentList}">
+                                <a th:text="${attachment.attachmentName}" th:href="@{${attachment.attachmentAddress}}"></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<link th:href="@{/css/pages/showNews.css}" rel="stylesheet"/>
+<style>
+    .col-md-4{padding-left:0px;padding-top:50px;}
+    .newsContentDiv{word-break: break-all;}
+    .nameOn{position:relative;margin-right:20px;margin-top:30px;float:right}
+    .nameOn #author{position:relative;}
+    .nameOn #datetime{position:relative;}
+    .nameOn #author div,.nameOn #datetime div{text-align: left}
+</style>
 </body>
 </html>

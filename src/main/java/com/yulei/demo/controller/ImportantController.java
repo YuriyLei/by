@@ -7,6 +7,8 @@ import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.service.ImportantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,15 @@ public class ImportantController {
     private ImportantRepository importantRepository;
     @Autowired
     private Result result;
+
+    /**
+     * 上传word文档类型的学院新闻
+     * @param request
+     * @param response
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @RequestMapping(value = "uploadImportant",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
@@ -70,8 +81,9 @@ public class ImportantController {
                     file.transferTo(localFile);
                     //保存记录
                     Important important = new Important();
-                    important.setTitle(fileName);
+                    important.setTitle(pre);
                     important.setType(3);
+                    important.setCreatedAt(new Date());
                     important.setContentType(1);
                     important.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=importantRepository.save(important)?1:0);
@@ -81,13 +93,26 @@ public class ImportantController {
         return result;
     }
 
+    /**
+     * 添加学院新闻
+     * @param important
+     * @return
+     */
     @RequestMapping(value = "addImportant",method = RequestMethod.POST)
     @ResponseBody
     public Result addImportant(@RequestBody Important important){
         important.setType(3);
+        important.setCreatedAt(new Date());
         result.setStatus(importantRepository.save(important)!=null?1:0);
         return result;
     }
+
+    /**
+     * 添加带附件的学院新闻
+     * @param important
+     * @param shortId
+     * @return
+     */
     @RequestMapping(value = "addImportantWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Important important,@PathVariable("shortId") String shortId){
@@ -107,5 +132,23 @@ public class ImportantController {
         Important important = importantService.findOne(id);
         model.addAttribute("news",important);
         return "showNews";
+    }
+
+    /**
+     * 获取分页排序的important列表
+     * @param model
+     * @param pageable
+     * @return
+     */
+    @RequestMapping(value = "/newsListShow")
+    public String newsList(Model model,Pageable pageable){
+        System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
+        Page<Important> list =  importantRepository.findAll(pageable);
+        System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
+        model.addAttribute("pageable",list);
+        model.addAttribute("newsList",list.getContent());
+        model.addAttribute("pageUrl","/important/newsListShow?size="+pageable.getPageSize()+"&sort=createdAt,desc");
+        model.addAttribute("type", 3);
+        return "newsList";
     }
 }

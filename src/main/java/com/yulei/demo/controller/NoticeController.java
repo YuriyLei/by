@@ -1,14 +1,20 @@
 package com.yulei.demo.controller;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.yulei.demo.common.Result;
+import com.yulei.demo.model.Attachment;
 import com.yulei.demo.model.Notice;
+import com.yulei.demo.model.User;
+import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.NoticeRepository;
+import com.yulei.demo.repository.UserRepositoy;
 import com.yulei.demo.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,8 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -34,7 +42,10 @@ public class NoticeController {
     private NoticeRepository noticeRepository;
     @Autowired
     private Result result;
-
+    @Autowired
+    private AttachmentRepository attachmentRepository;
+    @Autowired
+    private UserRepositoy userRepositoy;
     /**
      * 添加通知公告
      * @param notice
@@ -44,6 +55,8 @@ public class NoticeController {
     @ResponseBody
     public Result addNotice(@RequestBody Notice notice){
         notice.setType(1);
+        notice.setCreatedAt(new Date());
+        System.out.println(notice.getCreatedAt());
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }
@@ -58,6 +71,7 @@ public class NoticeController {
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Notice notice,@PathVariable("shortId") String shortId){
         notice.setType(1);
+        notice.setCreatedAt(new Date());
         result.setStatus(noticeService.saveNoticeWithAttachment(notice,shortId)!=null?1:0);
         return result;
     }
@@ -106,8 +120,9 @@ public class NoticeController {
                     file.transferTo(localFile);
                     //保存记录
                     Notice notice = new Notice();
-                    notice.setTitle(fileName);
+                    notice.setTitle(pre);
                     notice.setContentType(1);
+                    notice.setCreatedAt(new Date());
                     notice.setType(1);
                     notice.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=noticeRepository.save(notice)?1:0);
@@ -126,7 +141,17 @@ public class NoticeController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Notice notice = noticeService.findOne(id);
+        User user = userRepositoy.findSectorById(notice.getCreatedBy());
+        if(null!=notice.getAttachmentId()) {
+            List<Attachment> attachmentList = new ArrayList<Attachment>();
+            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(notice.getAttachmentId()));
+            for(String s:idList){
+                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
+            }
+            model.addAttribute("attachmentList",attachmentList);
+        }
         model.addAttribute("news",notice);
+        model.addAttribute("user",user);
         return "showNews";
     }
 
@@ -151,8 +176,12 @@ public class NoticeController {
      */
     @RequestMapping(value = "/newsListShow")
     public String newsList(Model model,Pageable pageable){
+        Page<Notice> list =  noticeRepository.findAll(pageable);
         System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
-        model.addAttribute("noticeList", noticeRepository.findAll(pageable));
+        model.addAttribute("newsList",list.getContent());
+        model.addAttribute("type",1);
+        model.addAttribute("pageUrl","/notice/newsListShow?size="+pageable.getPageSize()+"&sort=createdAt,desc");
+        model.addAttribute("pageable",list);
         return "newsList";
     }
 }

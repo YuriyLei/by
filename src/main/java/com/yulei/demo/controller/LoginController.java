@@ -59,21 +59,6 @@ public class LoginController {
         return "admin/uploadImportant";
     }
 
-    @RequestMapping(value = "/newsListShow/{type}")
-    public String newsList(@PathVariable int type, Model model,Pageable pageable){
-        System.out.println(type);
-        System.out.println(pageable.getPageSize()+" "+pageable.getPageNumber());
-        if(type==1){
-            model.addAttribute("newsList", noticeRepository.findAll(pageable));
-        }
-        if(type==2){
-            model.addAttribute("newsList", activityRepository.findAll(pageable));
-        }
-        if(type==3){
-            model.addAttribute("newsList", importantRepository.findAll(pageable));
-        }
-        return "newsList";
-    }
     @RequestMapping(value = "/testNav")
     public String testNav(){
         return "testNav";

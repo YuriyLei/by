@@ -7,6 +7,8 @@ import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,8 +72,9 @@ public class ActivityController {
                     file.transferTo(localFile);
                     //保存记录
                     Activity activity = new Activity();
-                    activity.setTitle(fileName);
+                    activity.setTitle(pre);
                     activity.setType(2);
+                    activity.setCreatedAt(new Date());
                     activity.setContentType(1);
                     activity.setContent(pathDir+File.separator+realName);
                     result.setStatus(null!=activityRepository.save(activity)?1:0);
@@ -81,18 +84,31 @@ public class ActivityController {
         return result;
     }
 
-
+    /**
+     * 添加学生活动
+     * @param activity
+     * @return
+     */
     @RequestMapping(value = "addActivity",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Activity activity){
+        activity.setCreatedAt(new Date());
         activity.setType(2);
         result.setStatus(activityRepository.save(activity)!=null?1:0);
         return result;
     }
-    @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
+
+    /**
+     * 添加带附件的学生活动
+     * @param activity
+     * @param shortId
+     * @return
+     */
+    @RequestMapping(value = "addActivityWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
         public Result addActivityWithAttachment(@RequestBody Activity activity,@PathVariable("shortId") String shortId){
         activity.setType(2);
+        activity.setCreatedAt(new Date());
         result.setStatus(activityService.saveActivityWithAttachment(activity,shortId)!=null?1:0);
         return result;
     }
@@ -104,8 +120,23 @@ public class ActivityController {
      */
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
-        Activity activity = activityService.findOne(id);
-        model.addAttribute("activity",activity);
+        model.addAttribute("news",activityService.findOne(id));
         return "showNews";
+    }
+
+    /**
+     * 获取分页排序的activity列表
+     * @param model
+     * @param pageable
+     * @return
+     */
+    @RequestMapping(value = "/newsListShow")
+    public String newsList(Model model,Pageable pageable){
+        Page<Activity> list =  activityRepository.findAll(pageable);
+        model.addAttribute("pageable",list);
+        model.addAttribute("newsList",list.getContent());
+        model.addAttribute("pageUrl","/activity/newsListShow?size="+pageable.getPageSize()+"&sort=createdAt,desc");
+        model.addAttribute("type", 2);
+        return "newsList";
     }
 }

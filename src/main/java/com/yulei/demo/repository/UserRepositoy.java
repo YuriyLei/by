@@ -7,4 +7,5 @@ import com.yulei.demo.model.User;
  * Created by lei.yu on 2016/4/22.
  */
 public interface UserRepositoy extends BaseRepository<User,Long>{
+    User findSectorById(Long id);
 }

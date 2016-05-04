@@ -44,7 +44,7 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
 
     @Column(name="created_by")
     @CreatedBy
-    private String createdBy;
+    private Long createdBy;
 
     private String deleted = UNDELETED;
 
@@ -55,7 +55,7 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
 
     @Column(name="updated_by")
     @LastModifiedBy
-    private String updatedBy;
+    private Long updatedBy;
 
     @Version
     private int version;
@@ -94,12 +94,20 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
         this.createdAt = createdAt;
     }
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public String getDeleted() {
@@ -116,14 +124,6 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public int getVersion() {
