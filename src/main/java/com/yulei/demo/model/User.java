@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class User extends BaseEntity<Long> implements Serializable{
 
     @Column
-    private Long userCode;
+    private String userCode;
     @Column
     private String password;
     @Column
@@ -42,11 +42,11 @@ public class User extends BaseEntity<Long> implements Serializable{
     private short year;
     public User(){}
 
-    public Long getUserCode() {
+    public String getUserCode() {
         return userCode;
     }
 
-    public void setUserCode(Long userCode) {
+    public void setUserCode(String userCode) {
         this.userCode = userCode;
     }
 

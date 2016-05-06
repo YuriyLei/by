@@ -8,7 +8,7 @@ import com.yulei.demo.model.Notice;
 import com.yulei.demo.model.User;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.NoticeRepository;
-import com.yulei.demo.repository.UserRepositoy;
+import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +45,7 @@ public class NoticeController {
     @Autowired
     private AttachmentRepository attachmentRepository;
     @Autowired
-    private UserRepositoy userRepositoy;
+    private UserRepository userRepositoy;
     /**
      * 添加通知公告
      * @param notice

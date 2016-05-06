@@ -42,9 +42,13 @@ public class LoginController {
     public String login(){
         return "login";
     }
-    @RequestMapping(value = "/no")
+    @RequestMapping(value = "/ax")
+    public String ax(){
+        return "adminAx/index";
+    }
+    @RequestMapping(value = "/addNews")
     public String addNo(){
-        return "admin/ahome";
+        return "admin/addNews";
     }
     @RequestMapping(value = "/upNo")
     public String upNo(){

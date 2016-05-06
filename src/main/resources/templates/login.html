@@ -10,10 +10,10 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" method="post" th:action="@{/student/findStuByStudentNameAndPassword}">
+    <form class="form-signin" method="post" th:action="@{/login}">
         <h2 class="form-signin-heading">请登录</h2>
         <label for="studentNumber" class="sr-only">邮件</label>
-        <input type="number" id="studentNumber" th:name="studentNumber" class="form-control" placeholder="Number" />
+        <input type="number" id="studentNumber" th:name="userCode" class="form-control" placeholder="Number" />
         <label for="password" class="sr-only">密码</label>
         <input type="password" id="password" th:name="password" class="form-control" placeholder="Password" />
         <div class="checkbox">

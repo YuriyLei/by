@@ -48,6 +48,11 @@ dependencies {
     compile('org.apache.poi:poi-scratchpad:3.14')
     compile('org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:1.0.1')
     compile('org.apache.xmlbeans:xmlbeans:2.3.0')
+    compile('org.apache.shiro:shiro-core:1.2.4')
+    compile('org.apache.shiro:shiro-spring:1.2.4')
+    compile('org.apache.shiro:shiro-encache:1.2.4')
+    compile('org.apache.shiro:shiro-ehcache:1.2.4')
+    compile('org.apache.shiro:shiro-web:1.2.4')
     runtime("org.hsqldb:hsqldb")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
