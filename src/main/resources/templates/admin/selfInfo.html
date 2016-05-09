@@ -19,14 +19,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <form ><!--th:action="@{/notice/uploadNotice}" method="post" enctype ="multipart/form-data" -->
-                            <h1>上传通知公告</h1>
-                            <input id="file"  name="upLoadFile" type="file" th:multiple="10" />
-                        </form>
-                        <p>注意事项：</p>
-                        <p>1.上传的word文档的名称作为公告的标题</p>
-                        <p>2.一次最多上传10个word文档</p>
-                        <p>3.如果公告有附件请点击<a target="_blank" th:href="@{/a/upNo}">单个信息添加页</a></p>
+                        <div>
+                            <img th:src="@{portrait}" style="width:100px;height:100px;"/>
+                            <span th:text="${user.userCode}"></span>
+                        </div>
                     </div>
                 </div>
             </div>

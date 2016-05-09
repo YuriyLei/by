@@ -5,6 +5,7 @@ import com.yulei.demo.model.User;
 import com.yulei.demo.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by lei.yu on 2016/5/5.
@@ -44,7 +43,6 @@ public class ShiroController {
         if(bindingResult.hasErrors()){
             return "login";
         }
-
         String username = user.getUserCode();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserCode(), user.getPassword());
         //获取当前的Subject
@@ -55,6 +53,10 @@ public class ShiroController {
             //所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
             logger.info("对用户[" + username + "]进行登录验证..验证开始");
             currentUser.login(token);
+            Session session = currentUser.getSession();
+            User user2 = userRepository.findByUserCode(user.getUserCode());
+            user2.setPassword(null);
+            session.setAttribute("user",user2);
             logger.info("对用户[" + username + "]进行登录验证..验证通过");
         }catch(UnknownAccountException uae){
             logger.info("对用户[" + username + "]进行登录验证..验证未通过,未知账户");
@@ -77,7 +79,7 @@ public class ShiroController {
         //验证是否登录成功
         if(currentUser.isAuthenticated()){
             logger.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
-            return "redirect:/user";
+            return "redirect:/ahome";
         }else{
             token.clear();
             return "redirect:/login";
@@ -98,18 +100,5 @@ public class ShiroController {
         return "403";
     }
 
-    @RequestMapping("/user")
-    @ResponseBody
-    public List<User> getUserList(Model model){
-        List<User> userList = userRepository.findAll();
-        model.addAttribute("userList", userRepository.findAll());
-        return userList;
-    }
 
-    @RequestMapping("/user/edit/{userid}")
-    @ResponseBody
-    public String getUserList(@PathVariable Long userId){
-        logger.info("------进入用户信息修改-------");
-        return "你有编辑用户的权限";
-    }
 }

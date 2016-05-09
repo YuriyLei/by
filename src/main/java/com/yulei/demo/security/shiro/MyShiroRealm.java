@@ -43,7 +43,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         //获取当前登录输入的用户名，等价于(String) principalCollection.fromRealm(getName()).iterator().next();
         String loginName = (String)super.getAvailablePrincipal(principalCollection);
         //到数据库查是否有此对象
-        // 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
+        // 这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         User user=userRepositoy.findByUserCode(loginName);
 
         if(user!=null){

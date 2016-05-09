@@ -35,6 +35,10 @@ public class MyShiroFilterFactoryBean extends ShiroFilterFactoryBean {
         ignoreExt.add(".bmp");
         ignoreExt.add(".js");
         ignoreExt.add(".css");
+        ignoreExt.add(".doc");
+        ignoreExt.add(".docx");
+        ignoreExt.add(".xls");
+        ignoreExt.add(".xlsx");
     }
 
     @Override
