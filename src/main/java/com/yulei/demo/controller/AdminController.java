@@ -88,4 +88,9 @@ public class AdminController {
     public String upIm(){
         return "/admin/uploadImportant";
     }
+
+    @RequestMapping(value="/userL")
+    public String userL(){
+        return "/admin/userList";
+    }
 }

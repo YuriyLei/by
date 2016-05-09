@@ -57,9 +57,6 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
     @LastModifiedBy
     private Long updatedBy;
 
-    @Version
-    private int version;
-
     public ID getId() {
         return id;
     }
@@ -126,12 +123,5 @@ public abstract class BaseEntity<ID extends Serializable> implements Persistable
         this.updatedAt = updatedAt;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
 }
 
