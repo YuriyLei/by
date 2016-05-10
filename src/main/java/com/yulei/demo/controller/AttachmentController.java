@@ -3,12 +3,10 @@ package com.yulei.demo.controller;
 import com.yulei.demo.common.BaseEntity;
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Attachment;
-import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +21,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.UUID;
 
 /**
  * Created by lei.yu on 2016/4/22.

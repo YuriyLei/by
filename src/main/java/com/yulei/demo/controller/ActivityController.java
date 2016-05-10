@@ -2,8 +2,6 @@ package com.yulei.demo.controller;
 
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Activity;
-import com.yulei.demo.model.Important;
-import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;

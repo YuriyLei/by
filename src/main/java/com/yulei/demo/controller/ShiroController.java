@@ -15,11 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
+
+import static com.yulei.demo.common.BaseEntity.UNDELETED;
 
 /**
  * Created by lei.yu on 2016/5/5.
@@ -54,7 +54,7 @@ public class ShiroController {
             logger.info("对用户[" + username + "]进行登录验证..验证开始");
             currentUser.login(token);
             Session session = currentUser.getSession();
-            User user2 = userRepository.findByUserCode(user.getUserCode());
+            User user2 = userRepository.findByUserCodeAndDeleted(user.getUserCode(),UNDELETED);
             user2.setPassword(null);
             session.setAttribute("user",user2);
             logger.info("对用户[" + username + "]进行登录验证..验证通过");

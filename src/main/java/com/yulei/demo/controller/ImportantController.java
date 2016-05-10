@@ -2,11 +2,9 @@ package com.yulei.demo.controller;
 
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Important;
-import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.service.ImportantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;

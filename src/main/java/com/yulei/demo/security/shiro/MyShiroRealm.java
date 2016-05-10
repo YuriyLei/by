@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.yulei.demo.common.BaseEntity.UNDELETED;
+
 /**
  * Created by lei.yu on 2016/5/5.
  */
@@ -44,7 +46,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String loginName = (String)super.getAvailablePrincipal(principalCollection);
         //到数据库查是否有此对象
         // 这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        User user=userRepositoy.findByUserCode(loginName);
+        User user=userRepositoy.findByUserCodeAndDeleted(loginName,UNDELETED);
 
         if(user!=null){
             //权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
@@ -80,7 +82,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         logger.info("验证当前Subject时获取到token为：" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 
         //查出是否有此用户
-        User user=userRepositoy.findByUserCode(token.getUsername());
+        User user=userRepositoy.findByUserCodeAndDeleted(token.getUsername(),UNDELETED);
         if(user!=null){
             // 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
             return new SimpleAuthenticationInfo(user.getUserCode(), user.getPassword(), getName());

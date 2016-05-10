@@ -1,27 +1,13 @@
 package com.yulei.demo.common;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.model.PicturesTable;
-import org.apache.poi.hwpf.usermodel.CharacterRun;
-import org.apache.poi.hwpf.usermodel.Picture;
-import org.apache.poi.hwpf.usermodel.Range;
-import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.hwpf.usermodel.Paragraph;
-import org.apache.poi.hwpf.usermodel.Table;
-import org.apache.poi.hwpf.usermodel.TableCell;
-import org.apache.poi.hwpf.usermodel.TableIterator;
-import org.apache.poi.hwpf.usermodel.TableRow;
-import org.apache.poi.ss.usermodel.Color;
+import org.apache.poi.hwpf.usermodel.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created by lei.yu on 2016/4/28.
@@ -33,10 +19,6 @@ public class WordToHtml {
      * 回车符ASCII码
      */
     private static final short ENTER_ASCII = 13;
-    /**
-     * 结束符ASCII码
-     */
-    private static final short END_ASCII = 0;
     /**
      * 空格符ASCII码
      */
@@ -128,11 +110,6 @@ public class WordToHtml {
                 // 判断是否为回车符
                 if (c == ENTER_ASCII) {
                     tempString += "<br/>";
-                    String fontStyle = toSpanType(cr);
-                    htmlText += fontStyle + tempString + cr.text() + "</span>";
-                    tempString = "";
-                }else if(c==END_ASCII){
-                    tempString += "";
                     String fontStyle = toSpanType(cr);
                     htmlText += fontStyle + tempString + cr.text() + "</span>";
                     tempString = "";

@@ -4,10 +4,8 @@ import com.yulei.demo.model.User;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.yulei.demo.common.BaseEntity.UNDELETED;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -44,15 +46,20 @@ public class UserController {
 
     /**
      * 获取用户列表
-     * @param model
      * @return Json
      */
     @RequestMapping("userList")
     @ResponseBody
-    public List<User> getUserList(Model model){
-        List<User> userList = userRepository.findAll();
-        model.addAttribute("userList", userRepository.findAll());
-        return userList;
+    public Map<String, Object> getUserList(@PathVariable int current,@PathVariable int rowCount){
+        List<User> userList = userRepository.findAllByDeleted(UNDELETED);
+        int total  = userRepository.countNotDelete();
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("current",current);
+        map.put("rowCount",rowCount);
+        map.put("rows",userList);
+
+        map.put("total",total);
+        return map;
     }
 
     /**

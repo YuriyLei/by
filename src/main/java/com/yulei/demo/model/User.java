@@ -25,7 +25,7 @@ public class User extends BaseEntity<Long> implements Serializable{
     @Column
     private short collegeId;
     @Column
-    private int positionID;
+    private int positionId;
     @Column
     private String subject;
     @Column
@@ -82,12 +82,12 @@ public class User extends BaseEntity<Long> implements Serializable{
         this.collegeId = collegeId;
     }
 
-    public int getPositionID() {
-        return positionID;
+    public int getPositionId() {
+        return positionId;
     }
 
-    public void setPositionID(int positionID) {
-        this.positionID = positionID;
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
     }
 
     public String getSubject() {

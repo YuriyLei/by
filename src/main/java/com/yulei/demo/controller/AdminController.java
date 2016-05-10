@@ -7,11 +7,8 @@ import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -92,5 +89,9 @@ public class AdminController {
     @RequestMapping(value="/userL")
     public String userL(){
         return "/admin/userList";
+    }
+    @RequestMapping(value="/addUserHtml")
+    public String addUserHtml(){
+        return "/admin/addUserHtml";
     }
 }
