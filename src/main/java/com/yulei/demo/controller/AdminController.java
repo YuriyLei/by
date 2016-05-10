@@ -86,12 +86,37 @@ public class AdminController {
         return "/admin/uploadImportant";
     }
 
+    /**
+     * 进入用户列表页面
+     * @return
+     */
     @RequestMapping(value="/userL")
     public String userL(){
         return "/admin/userList";
     }
+
+    /**
+     * 进入添加用户页面
+     * @return
+     */
     @RequestMapping(value="/addUserHtml")
     public String addUserHtml(){
         return "/admin/addUserHtml";
+    }
+    /**
+     * 进入添加角色页面
+     * @return
+     */
+    @RequestMapping(value="/addRoleHtml")
+    public String addRoleHtml(){
+        return "/admin/addRole";
+    }
+    /**
+     * 进入角色列表页面
+     * @return
+     */
+    @RequestMapping(value="/roleListHtml")
+    public String roleList(){
+        return "/admin/roleList";
     }
 }

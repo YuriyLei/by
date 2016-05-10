@@ -17,6 +17,16 @@ public class Permission extends BaseEntity<Long> implements Serializable{
     private String permissionName;
     @Column
     private long roleId;
+@Column
+private String permissionRemark;
+
+    public String getPermissionRemark() {
+        return permissionRemark;
+    }
+
+    public void setPermissionRemark(String permissionRemark) {
+        this.permissionRemark = permissionRemark;
+    }
 
     public Permission() {
     }

@@ -58,12 +58,9 @@ public class MyShiroRealm extends AuthorizingRealm {
             for (Role role : roleList) {
                 info.addStringPermissions(roleService.getPermissionsName(role));
             }
-            // 或者按下面这样添加
-            //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色
-//            simpleAuthorInfo.addRole("admin");
             //添加权限
-//            simpleAuthorInfo.addStringPermission("admin:manage");
-//            logger.info("已为用户[mike]赋予了[admin]角色和[admin:manage]权限");
+            //simpleAuthorInfo.addStringPermission("admin:manage");
+            //logger.info("已为用户[mike]赋予了[admin]角色和[admin:manage]权限");
             return info;
         }
         // 返回null的话，就会导致任何用户访问被拦截的请求时，都会自动跳转到unauthorizedUrl指定的地址
@@ -77,7 +74,7 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken authenticationToken) throws AuthenticationException {
         //UsernamePasswordToken对象用来存放提交的登录信息
-        UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
         logger.info("验证当前Subject时获取到token为：" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));
 

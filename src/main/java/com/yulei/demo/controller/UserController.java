@@ -57,7 +57,6 @@ public class UserController {
         map.put("current",current);
         map.put("rowCount",rowCount);
         map.put("rows",userList);
-
         map.put("total",total);
         return map;
     }
