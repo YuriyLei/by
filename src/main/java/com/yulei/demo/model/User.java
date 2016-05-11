@@ -21,8 +21,6 @@ public class User extends BaseEntity<Long> implements Serializable{
     @Column
     private String realName;
     @Column
-    private short collegeId;
-    @Column
     private int positionId;
     @Column
     private String subject;
@@ -63,14 +61,6 @@ public class User extends BaseEntity<Long> implements Serializable{
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public short getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(short collegeId) {
-        this.collegeId = collegeId;
     }
 
     public int getPositionId() {

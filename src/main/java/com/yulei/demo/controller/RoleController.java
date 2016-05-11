@@ -25,24 +25,25 @@ public class RoleController {
     private RoleRepository roleRepository;
     @Autowired
     private RoleService roleService;
-@Autowired
-private Result result;
+    @Autowired
+    private Result result;
+
     @RequestMapping("roleList")
     @ResponseBody
-    public Map<String,Object> roleList(int current,int rowCount){
-        int total  = roleRepository.countNotDelete();
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("current",current);
-        map.put("rowCount",rowCount);
-        map.put("rows",roleRepository.findAllByDeleted(UNDELETED));
-        map.put("total",total);
+    public Map<String, Object> roleList(int current, int rowCount) {
+        int total = roleRepository.countNotDelete();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("current", current);
+        map.put("rowCount", rowCount);
+        map.put("rows", roleRepository.findAllByDeleted(UNDELETED));
+        map.put("total", total);
         return map;
     }
 
     @RequestMapping("addRole")
     @ResponseBody
-    public Result roleList(Role role){
-        if(roleRepository.save(role)!=null)
+    public Result roleList(Role role) {
+        if (roleRepository.save(role) != null)
             result.setStatus(1);
         result.setStatus(0);
         return result;

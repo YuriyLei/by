@@ -101,8 +101,11 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/user/addUser", "authc,perms[user:addUser]");
         filterChainDefinitionMap.put("/user/updateUser", "authc,perms[user:updateUser]");
         filterChainDefinitionMap.put("/user/selfInfo", "authc");
+        filterChainDefinitionMap.put("/userL", "authc");
         filterChainDefinitionMap.put("/user/changePassword", "authc");
         filterChainDefinitionMap.put("/ahome", "authc");
+        filterChainDefinitionMap.put("/showRoleList", "authc");
+        filterChainDefinitionMap.put("/role/roleList", "authc,perms[role:look]");
         filterChainDefinitionMap.put("/notice/addNotice", "authc,perms[notice:addNotice]");
         filterChainDefinitionMap.put("/notice/addNoticeWithAttachment", "authc,perms[notice:addNoticeWithAttachment]");
         filterChainDefinitionMap.put("/notice/uploadNotice", "authc,perms[notice:uploadNotice]");
