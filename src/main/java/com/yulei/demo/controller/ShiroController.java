@@ -5,6 +5,7 @@ import com.yulei.demo.model.User;
 import com.yulei.demo.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -33,8 +34,7 @@ public class ShiroController {
     private UserRepository userRepository;
 
     @RequestMapping(value="/login",method= RequestMethod.GET)
-    public String loginForm(Model model){
-        model.addAttribute("user", new User());
+    public String loginForm(){
         return "login";
     }
 
@@ -44,7 +44,7 @@ public class ShiroController {
             return "login";
         }
         String username = user.getUserCode();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserCode(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserCode(), new Md5Hash(user.getPassword(),username,2).toHex());
         //获取当前的Subject
         Subject currentUser = SecurityUtils.getSubject();
         try {
@@ -53,10 +53,7 @@ public class ShiroController {
             //所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
             logger.info("对用户[" + username + "]进行登录验证..验证开始");
             currentUser.login(token);
-            Session session = currentUser.getSession();
-            User user2 = userRepository.findByUserCodeAndDeleted(user.getUserCode(),UNDELETED);
-            user2.setPassword(null);
-            session.setAttribute("user",user2);
+
             logger.info("对用户[" + username + "]进行登录验证..验证通过");
         }catch(UnknownAccountException uae){
             logger.info("对用户[" + username + "]进行登录验证..验证未通过,未知账户");
@@ -79,6 +76,10 @@ public class ShiroController {
         //验证是否登录成功
         if(currentUser.isAuthenticated()){
             logger.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
+            Session session = currentUser.getSession();
+            User user2 = userRepository.findByUserCodeAndDeleted(user.getUserCode(),UNDELETED);
+            user2.setPassword(null);
+            session.setAttribute("user",user2);
             return "redirect:/ahome";
         }else{
             token.clear();

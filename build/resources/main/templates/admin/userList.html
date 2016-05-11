@@ -30,48 +30,6 @@
                                 </tr>
                             </thead>
                         </table>
-
-                        <!--<nav th:with="current=${(pageable.getNumber())+1},total=${pageable.getTotalPages()}">-->
-                            <!--<ul class="pagination pagination-lg">-->
-                                <!--<li th:if="${current!=1}">-->
-                                    <!--<a th:href="@{${pageUrl}(page=${current-1})}" aria-label="Previous">-->
-                                        <!--<span aria-hidden="true">&laquo;</span>-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                                <!--<li th:if="${current==1 and total eq 1}" class="active">-->
-                                    <!--<a th:href="@{${pageUrl}(page=0)}" >-->
-                                        <!--<span th:text="1"></span><span class="sr-only">(current)</span>-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                                <!--<th:block th:unless="${total eq 1}">-->
-                                    <!--<li th:if="${(current-3)gt 0  and (current+3) le total}" th:each="i:${#numbers.sequence(current-3,current+3)}" th:class="${current == i}? 'active'" >-->
-                                        <!--<a th:href="@{${pageUrl}(page=${i-1})}" >-->
-                                            <!--<span th:text="${i}"></span><span class="sr-only">(current)</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li th:if="${(current-3)gt 0 and (current+3) gt total}" th:each="i:${#numbers.sequence(current-3,total)}" th:class="${current == i}? 'active'" >-->
-                                        <!--<a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">-->
-                                            <!--<span class="sr-only">(current)</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li th:if="${(current-3)le 0 and (current+3) gt total}" th:each="i:${#numbers.sequence(1,total)}" th:class="${current == i}? 'active'" >-->
-                                        <!--<a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">-->
-                                            <!--<span class="sr-only">(current)</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                    <!--<li th:if="${(current-3)le 0 and (current+3) le total }" th:each="i:${#numbers.sequence(1,current+3)}" th:class="${current == i}? 'active'" >-->
-                                        <!--<a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">-->
-                                            <!--<span class="sr-only">(current)</span>-->
-                                        <!--</a>-->
-                                    <!--</li>-->
-                                <!--</th:block>-->
-                                <!--<li th:if="${current!=total}">-->
-                                    <!--<a th:href="@{${pageUrl}(page=${current+1})}" aria-label="Next">-->
-                                        <!--<span aria-hidden="true">&raquo;</span>-->
-                                    <!--</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                        <!--</nav>-->
                     </div>
                 </div>
             </div>

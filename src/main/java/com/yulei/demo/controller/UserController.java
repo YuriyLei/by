@@ -1,5 +1,6 @@
 package com.yulei.demo.controller;
 
+import com.yulei.demo.common.Result;
 import com.yulei.demo.model.User;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.UserService;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.yulei.demo.common.BaseEntity.UNDELETED;
 
@@ -32,6 +31,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private Result result;
     /**
      * 编辑用户页面
      * @param id
@@ -50,7 +51,7 @@ public class UserController {
      */
     @RequestMapping("userList")
     @ResponseBody
-    public Map<String, Object> getUserList(@PathVariable int current,@PathVariable int rowCount){
+    public Map<String, Object> getUserList(int current,int rowCount){
         List<User> userList = userRepository.findAllByDeleted(UNDELETED);
         int total  = userRepository.countNotDelete();
         Map<String,Object> map = new HashMap<String, Object>();
@@ -78,5 +79,25 @@ public class UserController {
         user.setPassword(null);
         model.addAttribute("user",user);
         return "/admin/selfInfo";
+    }
+    /**
+     * 添加用户
+     * @return
+     */
+    @RequestMapping("addUser")
+    @ResponseBody
+    public Result addUser(User user){
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        if(session.getAttribute("user") == null){
+            result.setStatus(0);
+            return result;
+        }
+        user.setCreatedBy((((User) session.getAttribute("user")).getId()));
+        user.setCreatedAt(new Date());
+        user = userService.addUser(user);
+        if(user!=null)
+            result.setStatus(1);
+        return result;
     }
 }

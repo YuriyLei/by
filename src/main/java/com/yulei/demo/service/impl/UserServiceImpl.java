@@ -6,6 +6,7 @@ import com.yulei.demo.repository.RoleRepository;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.repository.UserRoleRepository;
 import com.yulei.demo.service.UserService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -41,5 +43,15 @@ public class UserServiceImpl implements UserService {
             roleList.add(roleRepository.findOne(id));
         }
         return roleList;
+    }
+
+    /**
+     * 添加用户，初始密码为编号
+     * @param user
+     * @return
+     */
+    public User addUser(User user) {
+        user.setPassword(new Md5Hash(user.getPassword(),user.getUserCode(),2).toHex());
+        return userRepositoy.save(user);
     }
 }

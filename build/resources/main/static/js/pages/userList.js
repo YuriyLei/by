@@ -8,7 +8,8 @@ $(document).ready(function(){
         {
             /* To accumulate custom parameter with the request object */
             return {
-                id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                current: 1,
+                rowCount:10
             };
         },
         url: "../user/userList",

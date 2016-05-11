@@ -21,8 +21,6 @@ public class User extends BaseEntity<Long> implements Serializable{
     @Column
     private String realName;
     @Column
-    private short power;
-    @Column
     private short collegeId;
     @Column
     private int positionId;
@@ -40,6 +38,7 @@ public class User extends BaseEntity<Long> implements Serializable{
     private String jobTitle;
     @Column
     private short year;
+
     public User(){}
 
     public String getUserCode() {
@@ -64,14 +63,6 @@ public class User extends BaseEntity<Long> implements Serializable{
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public short getPower() {
-        return power;
-    }
-
-    public void setPower(short power) {
-        this.power = power;
     }
 
     public short getCollegeId() {
