@@ -101,5 +101,9 @@ public class ShiroController {
         return "403";
     }
 
-
+    public static Session getSession(){
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        return session;
+    }
 }

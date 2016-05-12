@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.*;
 
 import static com.yulei.demo.common.BaseEntity.UNDELETED;
+import static com.yulei.demo.controller.ShiroController.getSession;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -38,11 +39,11 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(value="edit/{id}")
-    @ResponseBody
-    public String edit(@PathVariable Long id){
+    @RequestMapping(value="editHtml/{id}")
+    public String edit(@PathVariable Long id,Model model){
         logger.info("------进入用户信息修改-------");
-        return "你有权限";
+        model.addAttribute("user",userRepository.findOne(id));
+        return "/admin/changeUserInfo";
     }
 
     /**
@@ -51,15 +52,14 @@ public class UserController {
      */
     @RequestMapping("userList")
     @ResponseBody
-    public Map<String, Object> getUserList(int current,int rowCount){
-        List<User> userList = userRepository.findAllByDeleted(UNDELETED);
-        int total  = userRepository.countNotDelete();
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("current",current);
-        map.put("rowCount",rowCount);
-        map.put("rows",userList);
-        map.put("total",total);
-        return map;
+    public Map<String, Object> getUserList(int current,int rowCount,String searchPhrase){
+
+        if(searchPhrase==null || searchPhrase==""){
+            searchPhrase = "%%";
+        }else{
+            searchPhrase = "%"+searchPhrase+"%";
+        }
+        return userService.getUserList(UNDELETED,current,rowCount,searchPhrase);
     }
 
     /**
@@ -96,6 +96,15 @@ public class UserController {
         user.setCreatedBy((((User) session.getAttribute("user")).getId()));
         user.setCreatedAt(new Date());
         user = userService.addUser(user);
+        if(user!=null)
+            result.setStatus(1);
+        return result;
+    }
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public Result deleteUser(@PathVariable Long id){
+        result.setStatus(0);
+        User user =  userService.deleteUser(id,((User) getSession().getAttribute("user")).getId());
         if(user!=null)
             result.setStatus(1);
         return result;

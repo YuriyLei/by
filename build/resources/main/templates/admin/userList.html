@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>上传新闻 | 通知公告</title>
+    <title>用户列表</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/fileinput.min.css}" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bootgrid.min.css}"/>
@@ -20,13 +20,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="grid-data" class="table table-condensed table-hover table-striped">
+                        <table id="grid-keep-selection" class="table table-condensed table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th data-column-id="id" data-type="numeric">ID</th>
+                                    <th data-column-id="id" data-type="numeric" data-identifier="true" data-visibleInSelection="true" data-visible="false">ID</th>
                                     <th data-column-id="userCode">编号</th>
-                                    <th data-column-id="realName" >姓名</th>
+                                    <th data-column-id="realName" data-order="desc">姓名</th>
                                     <th data-column-id="sector" data-sortable="false">部门</th>
+                                    <th data-column-id="command" data-formatter="commands" data-sortable="false">操作</th>
+                                    <th data-column-id="command" data-formatter="link" data-sortable="false">详细</th>
                                 </tr>
                             </thead>
                         </table>
