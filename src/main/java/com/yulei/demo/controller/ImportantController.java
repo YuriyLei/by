@@ -1,8 +1,15 @@
 package com.yulei.demo.controller;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.yulei.demo.common.Result;
+import com.yulei.demo.model.Activity;
+import com.yulei.demo.model.Attachment;
 import com.yulei.demo.model.Important;
+import com.yulei.demo.model.User;
+import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.ImportantRepository;
+import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.ImportantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -33,8 +42,11 @@ public class ImportantController {
     @Autowired
     private ImportantRepository importantRepository;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private Result result;
-
+@Autowired
+private AttachmentRepository attachmentRepository;
     /**
      * 上传word文档类型的学院新闻
      * @param request
@@ -128,6 +140,16 @@ public class ImportantController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Important important = importantService.findOne(id);
+        User user = userRepository.findSectorById(important.getCreatedBy());
+        if(null != important.getAttachmentId()) {
+            List<Attachment> attachmentList = new ArrayList<Attachment>();
+            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(important.getAttachmentId()));
+            for(String s:idList){
+                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
+            }
+            model.addAttribute("attachmentList",attachmentList);
+        }
+        model.addAttribute("user",user);
         model.addAttribute("news",important);
         return "showNews";
     }

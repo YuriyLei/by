@@ -3,6 +3,7 @@ package com.yulei.demo.service.impl;
 import com.yulei.demo.model.Permission;
 import com.yulei.demo.model.Role;
 import com.yulei.demo.repository.PermissionRepository;
+import com.yulei.demo.repository.RolePermissionRepository;
 import com.yulei.demo.repository.RoleRepository;
 import com.yulei.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
+    private RolePermissionRepository rolePermissionRepository;
+    @Autowired
     private PermissionRepository permissionRepository;
+
     public Collection<String> getPermissionsName(Role role) {
         List<String> list = new ArrayList<String>();
         List<Permission> perlist = getPermissionList(role);
@@ -31,7 +35,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public List<Permission> getPermissionList(Role role){
-        List<Permission> perlist = permissionRepository.findAllByRoleId(role.getId());
-        return perlist;
+        return rolePermissionRepository.findAllByRoleId(role.getId());
     }
 }

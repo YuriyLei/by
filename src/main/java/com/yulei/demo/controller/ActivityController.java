@@ -1,9 +1,17 @@
 package com.yulei.demo.controller;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Activity;
+import com.yulei.demo.model.Attachment;
+import com.yulei.demo.model.Notice;
+import com.yulei.demo.model.User;
 import com.yulei.demo.repository.ActivityRepository;
+import com.yulei.demo.repository.AttachmentRepository;
+import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.ActivityService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by lei.yu on 2016/4/22.
@@ -33,7 +43,13 @@ public class ActivityController {
     @Autowired
     private Result result;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AttachmentRepository attachmentRepository;
+    @Autowired
     private ActivityRepository activityRepository;
+
+    @RequiresPermissions("activity:uploadActivity")
     @RequestMapping(value = "uploadActivity",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
@@ -87,6 +103,7 @@ public class ActivityController {
      * @param activity
      * @return
      */
+    @RequiresPermissions("activity:addActivity")
     @RequestMapping(value = "addActivity",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Activity activity){
@@ -102,6 +119,7 @@ public class ActivityController {
      * @param shortId
      * @return
      */
+    @RequiresPermissions("activity:addActivityWithAttachment")
     @RequestMapping(value = "addActivityWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
         public Result addActivityWithAttachment(@RequestBody Activity activity,@PathVariable("shortId") String shortId){
@@ -118,7 +136,18 @@ public class ActivityController {
      */
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
-        model.addAttribute("news",activityService.findOne(id));
+        Activity activity = activityService.findOne(id);
+        User user = userRepository.findSectorById(activity.getCreatedBy());
+        if(null != activity.getAttachmentId()) {
+            List<Attachment> attachmentList = new ArrayList<Attachment>();
+            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(activity.getAttachmentId()));
+            for(String s:idList){
+                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
+            }
+            model.addAttribute("attachmentList",attachmentList);
+        }
+        model.addAttribute("news",activity);
+        model.addAttribute("user",user);
         return "showNews";
     }
 

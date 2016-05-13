@@ -96,25 +96,26 @@ public class ShiroConfiguration {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // authc：该过滤器下的页面必须验证后才能访问，它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter
         logger.info("##################从数据库读取权限规则，加载到shiroFilter中##################");
-        filterChainDefinitionMap.put("/user/userList", "authc,perms[user:look]");// 限制/user，具体拦截的请求规则,可以从数据库中读取
-        filterChainDefinitionMap.put("/user/edit/**", "authc,perms[user:edit]");
-        filterChainDefinitionMap.put("/user/addUser", "authc,perms[user:addUser]");
-        filterChainDefinitionMap.put("/user/updateUser", "authc,perms[user:updateUser]");
+
+//        filterChainDefinitionMap.put("/user/userList", "authc,perms[user:look]");// 限制/user，具体拦截的请求规则,可以从数据库中读取
+//        filterChainDefinitionMap.put("/user/edit/**", "authc,perms[user:edit]");
+//        filterChainDefinitionMap.put("/user/addUser", "authc,perms[user:addUser]");
+//        filterChainDefinitionMap.put("/user/updateUser", "authc,perms[user:updateUser]");
         filterChainDefinitionMap.put("/user/selfInfo", "authc");
         filterChainDefinitionMap.put("/userL", "authc");
         filterChainDefinitionMap.put("/user/changePassword", "authc");
         filterChainDefinitionMap.put("/ahome", "authc");
         filterChainDefinitionMap.put("/showRoleList", "authc");
-        filterChainDefinitionMap.put("/role/roleList", "authc,perms[role:look]");
-        filterChainDefinitionMap.put("/notice/addNotice", "authc,perms[notice:addNotice]");
-        filterChainDefinitionMap.put("/notice/addNoticeWithAttachment", "authc,perms[notice:addNoticeWithAttachment]");
-        filterChainDefinitionMap.put("/notice/uploadNotice", "authc,perms[notice:uploadNotice]");
-        filterChainDefinitionMap.put("/activity/addActivity", "authc,perms[activity:addActivity]");
-        filterChainDefinitionMap.put("/activity/addActivityWithAttachment", "authc,perms[activity:addActivityWithAttachment]");
-        filterChainDefinitionMap.put("/activity/uploadActivity", "authc,perms[activity:uploadActivity]");
-        filterChainDefinitionMap.put("/important/addImportant", "authc,perms[important:addImportant]");
-        filterChainDefinitionMap.put("/important/addImportantWithAttachment", "authc,perms[important:addImportantWithAttachment]");
-        filterChainDefinitionMap.put("/important/uploadImportant", "authc,perms[important:uploadActivity]");
+//        filterChainDefinitionMap.put("/role/roleList", "authc,perms[role:look]");
+//        filterChainDefinitionMap.put("/notice/addNotice", "authc,perms[notice:addNotice]");
+//        filterChainDefinitionMap.put("/notice/addNoticeWithAttachment", "authc,perms[notice:addNoticeWithAttachment]");
+//        filterChainDefinitionMap.put("/notice/uploadNotice", "authc,perms[notice:uploadNotice]");
+//        filterChainDefinitionMap.put("/activity/addActivity", "authc,perms[activity:addActivity]");
+//        filterChainDefinitionMap.put("/activity/addActivityWithAttachment", "authc,perms[activity:addActivityWithAttachment]");
+//        filterChainDefinitionMap.put("/activity/uploadActivity", "authc,perms[activity:uploadActivity]");
+//        filterChainDefinitionMap.put("/important/addImportant", "authc,perms[important:addImportant]");
+//        filterChainDefinitionMap.put("/important/addImportantWithAttachment", "authc,perms[important:addImportantWithAttachment]");
+//        filterChainDefinitionMap.put("/important/uploadImportant", "authc,perms[important:uploadImportant]");
         // anon：它对应的过滤器里面是空的,什么都没做
         //anon 可以理解为不拦截
         filterChainDefinitionMap.put("/login", "anon");

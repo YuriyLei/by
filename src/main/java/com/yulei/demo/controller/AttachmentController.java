@@ -5,6 +5,8 @@ import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Attachment;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.service.AttachmentService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

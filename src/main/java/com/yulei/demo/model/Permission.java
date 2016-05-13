@@ -11,14 +11,14 @@ import java.io.Serializable;
  * Created by lei.yu on 2016/5/5.
  */
 @Entity
-@Table(name="permission")
-public class Permission extends BaseEntity<Long> implements Serializable{
+@Table(name = "permission")
+public class Permission extends BaseEntity<Long> implements Serializable {
     @Column
     private String permissionName;
     @Column
-    private long roleId;
-@Column
-private String permissionRemark;
+    private String permissionExpression;
+    @Column
+    private String permissionRemark;
 
     public String getPermissionRemark() {
         return permissionRemark;
@@ -31,12 +31,12 @@ private String permissionRemark;
     public Permission() {
     }
 
-    public long getRoleId() {
-        return roleId;
+    public String getPermissionExpression() {
+        return permissionExpression;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setPermissionExpression(String permissionExpression) {
+        this.permissionExpression = permissionExpression;
     }
 
     public String getPermissionName() {
