@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>新闻列表</title>
+    <style>
+        .list-group-item .datatime{float:right;margin-right:5px;}
+        .list-group-item .title{margin-left:25px;}
+    </style>
 </head>
 <body>
 <div th:include="/head"></div>
@@ -105,6 +109,5 @@
         </div>
     </div>
 </div>
-<link th:href="@{/css/pages/newsList.css}" rel="stylesheet"/>
 </body>
 </html>

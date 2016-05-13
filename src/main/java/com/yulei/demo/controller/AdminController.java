@@ -1,9 +1,11 @@
 package com.yulei.demo.controller;
 
 import com.yulei.demo.model.Activity;
+import com.yulei.demo.model.Image;
 import com.yulei.demo.model.Important;
 import com.yulei.demo.model.Notice;
 import com.yulei.demo.repository.ActivityRepository;
+import com.yulei.demo.repository.ImageRepository;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,8 @@ public class AdminController {
     private ImportantRepository importantRepository;
     @Autowired
     private ActivityRepository activityRepository;
-
+@Autowired
+private ImageRepository imageRepository;
     /**
      * 进入系统前台首页
      * @param model
@@ -35,9 +38,13 @@ public class AdminController {
         List<Notice> noticesList= noticeRepository.findTopTen();
         List<Important> importantList= importantRepository.findTopTen();
         List<Activity> activityList= activityRepository.findTopTen();
+        List<Image> carouselList= imageRepository.findCarouselTopFive();
+        List<Image> imageList= imageRepository.findImageTopTen();
         model.addAttribute("noticeList",noticesList);
         model.addAttribute("activityList",activityList);
         model.addAttribute("importantList",importantList);
+        model.addAttribute("carouselList",carouselList);
+        model.addAttribute("imageList",imageList);
         return "index";
     }
 
