@@ -5,6 +5,7 @@ import com.yulei.demo.model.User;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class UserController {
     @Autowired
     private Result result;
     /**
-     * 编辑用户页面
+     * 进入编辑用户页面
      * @param id
      * @return
      */
@@ -50,6 +51,7 @@ public class UserController {
      * 获取用户列表
      * @return Json
      */
+    @RequiresPermissions("user:look")
     @RequestMapping("userList")
     @ResponseBody
     public Map<String, Object> getUserList(int current,int rowCount,String searchPhrase){
@@ -63,7 +65,7 @@ public class UserController {
     }
 
     /**
-     * 个人信息
+     * 个人信息,需要用户登录
      * @return
      */
     @RequestMapping("selfInfo")
@@ -84,6 +86,7 @@ public class UserController {
      * 添加用户
      * @return
      */
+    @RequiresPermissions("user:addUser")
     @RequestMapping("addUser")
     @ResponseBody
     public Result addUser(User user){
@@ -100,6 +103,7 @@ public class UserController {
             result.setStatus(1);
         return result;
     }
+    @RequiresPermissions("user:deleteUser")
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public Result deleteUser(@PathVariable Long id){

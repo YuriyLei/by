@@ -2,12 +2,14 @@ package com.yulei.demo.service.impl;
 
 import com.yulei.demo.model.Permission;
 import com.yulei.demo.model.Role;
+import com.yulei.demo.model.RolePermission;
 import com.yulei.demo.repository.PermissionRepository;
 import com.yulei.demo.repository.RolePermissionRepository;
 import com.yulei.demo.repository.RoleRepository;
 import com.yulei.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +37,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public List<Permission> getPermissionList(Role role){
-        return rolePermissionRepository.findAllByRoleId(role.getId());
+        List<Long> permissionIdlist = rolePermissionRepository.findPermissionIdByRoleId(role.getId());
+        List<Permission> permissionList = new ArrayList<Permission>();
+        for(Long id:permissionIdlist){
+            permissionList.add(permissionRepository.findOne(id));
+        }
+        return permissionList;
     }
 }

@@ -8,6 +8,7 @@ import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.repository.ImageRepository;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.NoticeRepository;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -106,6 +107,7 @@ private ImageRepository imageRepository;
      * 进入添加用户页面
      * @return
      */
+    @RequiresPermissions("user:addUser")
     @RequestMapping(value="/addUserHtml")
     public String addUserHtml(){
         return "/admin/addUserHtml";

@@ -11,6 +11,7 @@ import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.ImportantRepository;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.ImportantService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +56,7 @@ private AttachmentRepository attachmentRepository;
      * @throws IllegalStateException
      * @throws IOException
      */
+    @RequiresPermissions("important:uploadImportant")
     @RequestMapping(value = "uploadImportant",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
@@ -108,6 +110,7 @@ private AttachmentRepository attachmentRepository;
      * @param important
      * @return
      */
+    @RequiresPermissions("important:addImportant")
     @RequestMapping(value = "addImportant",method = RequestMethod.POST)
     @ResponseBody
     public Result addImportant(@RequestBody Important important){
@@ -123,6 +126,7 @@ private AttachmentRepository attachmentRepository;
      * @param shortId
      * @return
      */
+    @RequiresPermissions("important:addImportantWithAttachment")
     @RequestMapping(value = "addImportantWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Important important,@PathVariable("shortId") String shortId){

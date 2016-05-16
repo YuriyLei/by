@@ -10,6 +10,7 @@ import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.NoticeRepository;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.NoticeService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,12 +46,13 @@ public class NoticeController {
     @Autowired
     private AttachmentRepository attachmentRepository;
     @Autowired
-    private UserRepository userRepositoy;
+    private UserRepository userRepository;
     /**
      * 添加通知公告
      * @param notice
      * @return Json
      */
+    @RequiresPermissions("notice:addNotice")
     @RequestMapping(value = "addNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result addNotice(@RequestBody Notice notice){
@@ -67,6 +69,7 @@ public class NoticeController {
      * @param shortId
      * @return
      */
+    @RequiresPermissions("notice:addNoticeWithAttachment")
     @RequestMapping(value = "addNoticeWithAttachment/{shortId}",method = RequestMethod.POST)
     @ResponseBody
     public Result addNoticeWithAttachment(@RequestBody Notice notice,@PathVariable("shortId") String shortId){
@@ -84,6 +87,7 @@ public class NoticeController {
      * @throws IllegalStateException
      * @throws IOException
      */
+    @RequiresPermissions("notice:uploadNotice")
     @RequestMapping(value = "uploadNotice",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
@@ -141,7 +145,7 @@ public class NoticeController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Notice notice = noticeService.findOne(id);
-        User user = userRepositoy.findSectorById(notice.getCreatedBy());
+        User user = userRepository.findSectorById(notice.getCreatedBy());
         if(null!=notice.getAttachmentId()) {
             List<Attachment> attachmentList = new ArrayList<Attachment>();
             List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(notice.getAttachmentId()));
@@ -153,19 +157,6 @@ public class NoticeController {
         model.addAttribute("news",notice);
         model.addAttribute("user",user);
         return "showNews";
-    }
-
-    /**
-     * 暂未使用
-     * @param id
-     * @return
-     */
-    @RequestMapping(value="getOne/{id}")
-    @ResponseBody
-    public Result getOne(@PathVariable long id){
-        result.setStatus(1);
-        result.setObject(noticeRepository.findOne(id));
-        return result;
     }
 
     /**

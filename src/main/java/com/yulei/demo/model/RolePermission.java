@@ -1,6 +1,7 @@
 package com.yulei.demo.model;
 
 import com.yulei.demo.common.BaseEntity;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

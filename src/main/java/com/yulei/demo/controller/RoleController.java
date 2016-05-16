@@ -4,6 +4,7 @@ import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Role;
 import com.yulei.demo.repository.RoleRepository;
 import com.yulei.demo.service.RoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class RoleController {
     @Autowired
     private Result result;
 
+    @RequiresPermissions("role:roleList")
     @RequestMapping("roleList")
     @ResponseBody
     public Map<String, Object> roleList(int current, int rowCount) {
@@ -39,7 +41,7 @@ public class RoleController {
         map.put("total", total);
         return map;
     }
-
+    @RequiresPermissions("role:addRole")
     @RequestMapping("addRole")
     @ResponseBody
     public Result roleList(Role role) {
