@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a7e8a4d0-d660-4ba9-b54b-d2e15838c2ce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/com/yulei/demo/model/RolePermission.class" afterPath="$PROJECT_DIR$/build/classes/main/com/yulei/demo/model/RolePermission.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LOG_PATH_IS_UNDEFINED/all.log" afterPath="$PROJECT_DIR$/LOG_PATH_IS_UNDEFINED/all.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LOG_PATH_IS_UNDEFINED/error.log" afterPath="$PROJECT_DIR$/LOG_PATH_IS_UNDEFINED/error.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/AdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/ImportantController.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/ImportantController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/NoticeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/NoticeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/RoleController.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/RoleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/model/RolePermission.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/model/RolePermission.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/repository/RolePermissionRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/repository/RolePermissionRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/yulei/demo/service/impl/RoleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/yulei/demo/service/impl/RoleServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/demo.sql" afterPath="$PROJECT_DIR$/src/main/resources/demo.sql" />
     </list>
     <ignored path="demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -903,9 +892,12 @@
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.yulei.demo.repository" />
-      <recent name="com" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\demo\src\main\resources\static\css" />
+      <recent name="E:\demo\src\main\resources\templates" />
+      <recent name="E:\demo\src\main\webapp\WEB-INF" />
+      <recent name="E:\demo\src\main\webapp\img\imageNews" />
+      <recent name="E:\demo\src\main\resources\templates\admin" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\demo\src\main\resources" />
@@ -921,12 +913,9 @@
       <recent name="com.yulei.demo.service.aspect" />
       <recent name="com.yulei.demo.config" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\demo\src\main\resources\static\css" />
-      <recent name="E:\demo\src\main\resources\templates" />
-      <recent name="E:\demo\src\main\webapp\WEB-INF" />
-      <recent name="E:\demo\src\main\webapp\img\imageNews" />
-      <recent name="E:\demo\src\main\resources\templates\admin" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.yulei.demo.repository" />
+      <recent name="com" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.Application">
@@ -1416,12 +1405,12 @@
       <workItem from="1462928806215" duration="18523000" />
       <workItem from="1463018524132" duration="21359000" />
       <workItem from="1463102148192" duration="22451000" />
-      <workItem from="1463360531083" duration="2989000" />
+      <workItem from="1463360531083" duration="3178000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309033000" />
+    <option name="totallyTimeSpent" value="309222000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1433,8 +1422,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="95" y="27" width="1399" height="820" extended-state="1" />
-    <editor active="false" />
+    <frame x="95" y="27" width="1399" height="820" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994187" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1640,13 +1629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/demo.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5676">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1900,6 +1882,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="14" column="79" selection-start-line="14" selection-start-column="79" selection-end-line="14" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/demo.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-132">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
