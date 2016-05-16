@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <title>个人信息</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/css/fileinput.min.css}" media="all" rel="stylesheet" type="text/css"/>
+    <style>
+        #topDiv{margin:10px auto;text-align: center}
+        #topDiv #portrait img{width:200px;height:280px;margin-bottom: 20px;}
+        #topDiv span{font-size:25px;color:#f75000;font-weight:700;}
+        .row{padding:15px auto;font-size:20px;}
+        .leftTitle{text-align: right;font-weight: 500;font-size:20px;}
+    </style>
 </head>
 <body>
 <section>
@@ -17,11 +23,37 @@
         </th:block>
         <div class="wrapper">
             <div class="container">
-                <div class="row">
+                <div class="row-fluid">
                     <div class="col-md-12">
-                        <div>
-                            <img th:src="@{portrait}" style="width:100px;height:100px;"/>
-                            <span th:text="${user.userCode}"></span>
+                        <div id="topDiv">
+                            <div id="portrait">
+                                <img th:src="@{${user.portrait}}" />
+                            </div>
+                            <span th:text="${user.realName}"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">编号</div>
+                            <div class="col-md-4 " th:text="${user.userCode}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">学位</div>
+                            <div class="col-md-4" th:text="${user.degree}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">职称</div>
+                            <div class="col-md-4" th:text="${user.jobTitle}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">部门</div>
+                            <div class="col-md-4" th:text="${sector.sectorName}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">研究方向</div>
+                            <div class="col-md-4" th:text="${user.subject}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-4 leftTitle">个人简介</div>
+                            <div class="col-md-4" th:text="${user.intro}"></div>
                         </div>
                     </div>
                 </div>
@@ -32,40 +64,5 @@
 </body>
 <script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
 <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
-<!--当需要看缩略图的时候-->
-<!--<script th:src="@{/js/plugins/canvas-to-blob.min.js}" type="text/javascript" ></script>-->
-<script th:src="@{/js/fileinput.min.js}" type="text/javascript"></script>
-<script th:src="@{/js/fileinput_locale_zh.js}"></script>
-<script>
-    $(function(){
-        $('#file').fileinput({
-            uploadUrl: '../../notice/uploadNotice', //上传的地址
-            allowedFileExtensions: ['doc'],//接收的文件后缀
-            showUpload: true, //是否显示上传按钮
-            showCaption: false,//是否显示标题
-            browseClass: "btn btn-primary", //按钮样式
-            dropZoneEnabled: true,//是否显示拖拽区域
-            //minImageWidth: 50, //图片的最小宽度
-            //minImageHeight: 50,//图片的最小高度
-            //maxImageWidth: 1000,//图片的最大宽度
-            //maxImageHeight: 1000,//图片的最大高度
-            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
-            //minFileCount: 0,
-            maxFileCount: 10, //表示允许同时上传的最大文件个数
-            enctype: 'multipart/form-data',
-            validateInitialCount:true,
-            //previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
-        });
-        //导入文件上传完成之后的事件
-        $("#file").on("fileuploaded", function (event, data, previewId, index) {
-            console.log(data);
-            var result = data.response;
-            if (result.status == 1) {
-                location.href=refresh();
-            }
 
-        });
-    });
-</script>
 </html>

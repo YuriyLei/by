@@ -2,6 +2,7 @@ package com.yulei.demo.controller;
 
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.User;
+import com.yulei.demo.repository.SectorRepository;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -35,6 +36,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private Result result;
+    @Autowired
+    private SectorRepository sectorRepository;
     /**
      * 进入编辑用户页面
      * @param id
@@ -81,6 +84,7 @@ public class UserController {
         user = userRepository.findOne(user.getId());
         user.setPassword(null);
         model.addAttribute("user",user);
+        model.addAttribute("sector",sectorRepository.findOne(userRepository.findSectorIdById(user.getId())));
         return "/admin/selfInfo";
     }
     @RequiresPermissions("user:look")
@@ -89,6 +93,7 @@ public class UserController {
         User user = userRepository.findOne(id);
         user.setPassword(null);
         model.addAttribute("user",user);
+        model.addAttribute("sector",sectorRepository.findOne(userRepository.findSectorIdById(id)));
         return "/admin/selfInfo";
     }
     /**
