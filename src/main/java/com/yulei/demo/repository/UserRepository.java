@@ -22,4 +22,5 @@ public interface UserRepository extends BaseRepository<User, Long> {
     @Query(value = "select * from user u where u.deleted=:deleted and u.real_name like :search limit :begin,:rowCount", nativeQuery = true)
     List<User> findAllByDeleted(@Param("deleted") String deleted, @Param("begin") int begin, @Param("rowCount") int rowCount, @Param("search") String searchPhase);
 
+    User findOneByUserCode(String userCode);
 }

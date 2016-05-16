@@ -6,7 +6,7 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/easydropdown.css}" rel="stylesheet"/>
     <style>
-        .row{margin:10px auto;}
+        .row{margin:15px auto;}
         .leftTitle{text-align:right;padding-top:5px;}
     </style>
 </head>
@@ -41,6 +41,7 @@
                     <div class="col-md-3 leftTitle">部门</div>
                     <div class="col-md-9">
                         <select class="dropdown" id="sector">
+                            <option value="0" selected="selected">请选择部门</option>
                             <th:block th:each="sector:${sectorList}">
                                 <option th:value="${sector.id}" th:text="${sector.sectorName}">选项</option>
                             </th:block>
@@ -71,24 +72,44 @@
         $("#submitBtn").click(function(){
             console.log("添加用户");
             var userCode = $("#userCode").val();
+            if(userCode==null){
+                alert("用户编号不能为空");
+            }
             var password = $.md5(userCode);
-            console.log(password);
+
             var realName = $("#realName").val();
-            var sectorId = $("#sector").selected.val();
+            var sectorId = $("#sector").val();
             var degree = $("#degree").val();
             var jobTitle = $("#jobTitle").val();
             var subject = $("#subject").val();
-            alert(sectorId);
-            $.post("/user/addUser",
-                    {
-                        userCode:userCode,
-                        password:password,
-                        realName:realName,
-                        sectorId:sectorId,
-                        degree:degree,
-                        jobTitle:jobTitle,
-                        subject:subject
-                    })
+            if(userCode==null||realName==null||sectorId==0||sectorId==null||degree==null||jobTitle==null||subject==null){
+                alert("输入有误!请重新输入");
+            }else{
+                $.ajax({
+                    url: "/user/addUser",
+                    type:"post",
+                    data: {
+                        userCode: userCode,
+                        password: password,
+                        realName: realName,
+                        sectorId: sectorId,
+                        degree: degree,
+                        jobTitle: jobTitle,
+                        subject: subject
+                    },
+                    dataType:"json",
+                    success:function(result){
+                        if(result.status==1){
+                            alert("添加成功");
+                            window.refresh();
+                        }else{
+                            alert(result.object);
+                        }
+
+
+                    }
+                })
+            }
         })
     })
 </script>

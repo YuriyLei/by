@@ -105,6 +105,11 @@ public class UserController {
             result.setStatus(0);
             return result;
         }
+        if(null != userRepository.findOneByUserCode(user.getUserCode())){
+            result.setStatus(0);
+            result.setObject("用户编号已经存在！请修改");
+            return result;
+        }
         user.setCreatedBy((((User) session.getAttribute("user")).getId()));
         user.setCreatedAt(new Date());
         user.setPortrait("/img/portrait/default.png");
