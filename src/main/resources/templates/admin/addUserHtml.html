@@ -2,10 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>添加通知公告</title>
+    <title>添加用户</title>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/css/fileinput.min.css}" media="all" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.bootgrid.min.css}"/>
+    <link th:href="@{/css/easydropdown.css}" rel="stylesheet"/>
+    <style>
+        .row{margin:15px auto;}
+        .leftTitle{text-align:right;padding-top:5px;}
+    </style>
 </head>
 <body>
 <section>
@@ -17,17 +20,41 @@
         </th:block>
         <div class="wrapper">
             <div class="container">
+                <h3 style="text-align: center">添加用户</h3>
                 <div class="row">
-                    <div class="col-md-3">编号</div>
+                    <div class="col-md-3 leftTitle">编号</div>
                     <div class="col-md-9"><input type="text" class="form-control" placeholder="用户编号" id="userCode"/></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">姓名</div>
+                    <div class="col-md-3 leftTitle">姓名</div>
                     <div class="col-md-9"><input type="text" class="form-control" placeholder="真实姓名" id="realName"/></div>
                 </div>
-
                 <div class="row">
-                    <button class="btn btn-primary" id="submitBtn">提交</button>
+                    <div class="col-md-3 leftTitle">学位</div>
+                    <div class="col-md-9"><input type="text" class="form-control" placeholder="学位" id="degree"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 leftTitle">职称</div>
+                    <div class="col-md-9"><input type="text" class="form-control" placeholder="职称" id="jobTitle"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 leftTitle">部门</div>
+                    <div class="col-md-9">
+                        <select class="dropdown" id="sector">
+                            <th:block th:each="sector:${sectorList}">
+                                <option th:value="${sector.id}" th:text="${sector.sectorName}">选项</option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 leftTitle">研究方向</div>
+                    <div class="col-md-9"><input type="text" class="form-control" placeholder="职称" id="subject"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button class="btn btn-primary" id="submitBtn">提交</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,10 +63,8 @@
 </body>
 <!--<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>-->
 <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.easydropdown.min.js}" type="text/javascript"></script>
 
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" th:src="@{/js/jquery.bootgrid.min.js}"></script>
-<script type="text/javascript" charset="utf8" th:src="@{/js/jquery.bootgrid.fa.min.js}"></script>
 <script type="text/javascript" charset="utf8" th:src="@{/js/jquery.md5.min.js}"></script>
 <script>
     $(function(){
@@ -49,11 +74,20 @@
             var password = $.md5(userCode);
             console.log(password);
             var realName = $("#realName").val();
+            var sectorId = $("#sector").selected.val();
+            var degree = $("#degree").val();
+            var jobTitle = $("#jobTitle").val();
+            var subject = $("#subject").val();
+            alert(sectorId);
             $.post("/user/addUser",
                     {
                         userCode:userCode,
                         password:password,
-                        realName:realName
+                        realName:realName,
+                        sectorId:sectorId,
+                        degree:degree,
+                        jobTitle:jobTitle,
+                        subject:subject
                     })
         })
     })

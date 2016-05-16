@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface AttachmentService {
     void updataNewsId(List<Attachment> attachmentList, long noticeId,int type);
+
+    List<Attachment> getAttachmentListByIds(String attachmentId);
 }

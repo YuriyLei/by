@@ -1,11 +1,14 @@
 package com.yulei.demo.service.impl;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.yulei.demo.model.Attachment;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,5 +25,14 @@ public class AttachmentServiceImpl implements AttachmentService{
             attachment.setType(type);
             attachmentRepository.save(attachment);
         }
+    }
+
+    public List<Attachment> getAttachmentListByIds(String attachmentIds) {
+        List<Attachment> attachmentList = new ArrayList<Attachment>();
+        List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(attachmentIds));
+        for(String s:idList){
+            attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
+        }
+        return attachmentList;
     }
 }

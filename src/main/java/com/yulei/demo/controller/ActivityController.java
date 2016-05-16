@@ -9,8 +9,10 @@ import com.yulei.demo.model.Notice;
 import com.yulei.demo.model.User;
 import com.yulei.demo.repository.ActivityRepository;
 import com.yulei.demo.repository.AttachmentRepository;
+import com.yulei.demo.repository.SectorRepository;
 import com.yulei.demo.repository.UserRepository;
 import com.yulei.demo.service.ActivityService;
+import com.yulei.demo.service.AttachmentService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,16 +50,20 @@ public class ActivityController {
     private AttachmentRepository attachmentRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private SectorRepository sectorRepository;
+    @Autowired
+    private AttachmentService attachmentService;
 
     @RequiresPermissions("activity:uploadActivity")
-    @RequestMapping(value = "uploadActivity",method = RequestMethod.POST)
+    @RequestMapping(value = "uploadActivity", method = RequestMethod.POST)
     @ResponseBody
-    public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+    public Result upLoad(HttpServletRequest request) throws IllegalStateException, IOException {
         //解析器解析request的上下文
         CommonsMultipartResolver multipartResolver =
                 new CommonsMultipartResolver(request.getSession().getServletContext());
         //先判断request中是否包涵multipart类型的数据，
-        if(multipartResolver.isMultipart(request)) {
+        if (multipartResolver.isMultipart(request)) {
             //再将request中的数据转化成multipart类型的数据
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
             Iterator iter = multiRequest.getFileNames();
@@ -65,23 +71,21 @@ public class ActivityController {
             SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM");
             SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy");
             while (iter.hasNext()) {
-
                 MultipartFile file = multiRequest.getFile((String) iter.next());
-                String pathDir = "/upload/activityNews/"+ dateformat2.format(new Date()) +"/"+ dateformat1.format(new Date());
+                String pathDir = "/upload/activityNews/" + dateformat2.format(new Date()) + "/" + dateformat1.format(new Date());
                 /**得到保存目录的真实路径**/
                 String realPathDir = request.getSession().getServletContext().getRealPath(pathDir);
                 /**根据真实路径创建目录**/
                 File saveFile = new File(realPathDir);
-                if(!saveFile.exists())
+                if (!saveFile.exists())
                     saveFile.mkdirs();
                 if (file != null) {
-
                     String fileName = file.getOriginalFilename();
-                    String pre = fileName.substring(0,fileName.lastIndexOf("."));
+                    String pre = fileName.substring(0, fileName.lastIndexOf("."));
                     String suffix = fileName.substring(fileName.lastIndexOf("."));
-                    String realName = pre+"."+dateformat.format(new Date())+suffix;
+                    String realName = pre + "." + dateformat.format(new Date()) + suffix;
                     System.out.println(realName);
-                    File localFile = new File(realPathDir + File.separator+realName);
+                    File localFile = new File(realPathDir + File.separator + realName);
                     //写文件到本地
                     file.transferTo(localFile);
                     //保存记录
@@ -90,8 +94,8 @@ public class ActivityController {
                     activity.setType(2);
                     activity.setCreatedAt(new Date());
                     activity.setContentType(1);
-                    activity.setContent(pathDir+File.separator+realName);
-                    result.setStatus(null!=activityRepository.save(activity)?1:0);
+                    activity.setContent(pathDir + File.separator + realName);
+                    result.setStatus(null != activityRepository.save(activity) ? 1 : 0);
                 }
             }
         }
@@ -100,69 +104,70 @@ public class ActivityController {
 
     /**
      * 添加学生活动
+     *
      * @param activity
      * @return
      */
     @RequiresPermissions("activity:addActivity")
-    @RequestMapping(value = "addActivity",method = RequestMethod.POST)
+    @RequestMapping(value = "addActivity", method = RequestMethod.POST)
     @ResponseBody
-    public Result addNotice(@RequestBody Activity activity){
+    public Result addNotice(@RequestBody Activity activity) {
         activity.setCreatedAt(new Date());
         activity.setType(2);
-        result.setStatus(activityRepository.save(activity)!=null?1:0);
+        result.setStatus(activityRepository.save(activity) != null ? 1 : 0);
         return result;
     }
 
     /**
      * 添加带附件的学生活动
+     *
      * @param activity
      * @param shortId
      * @return
      */
     @RequiresPermissions("activity:addActivityWithAttachment")
-    @RequestMapping(value = "addActivityWithAttachment/{shortId}",method = RequestMethod.POST)
+    @RequestMapping(value = "addActivityWithAttachment/{shortId}", method = RequestMethod.POST)
     @ResponseBody
-        public Result addActivityWithAttachment(@RequestBody Activity activity,@PathVariable("shortId") String shortId){
+    public Result addActivityWithAttachment(@RequestBody Activity activity, @PathVariable("shortId") String shortId) {
         activity.setType(2);
         activity.setCreatedAt(new Date());
-        result.setStatus(activityService.saveActivityWithAttachment(activity,shortId)!=null?1:0);
+        result.setStatus(activityService.saveActivityWithAttachment(activity, shortId) != null ? 1 : 0);
         return result;
     }
+
     /**
      * 根据请求id，读取一条新闻
+     *
      * @param id
      * @param model
      * @return
      */
-    @RequestMapping(value="readOne/{id}")
-    public String readOneNews(@PathVariable long id, Model model){
+    @RequestMapping(value = "readOne/{id}")
+    public String readOneNews(@PathVariable long id, Model model) {
         Activity activity = activityService.findOne(id);
-        User user = userRepository.findSectorById(activity.getCreatedBy());
-        if(null != activity.getAttachmentId()) {
-            List<Attachment> attachmentList = new ArrayList<Attachment>();
-            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(activity.getAttachmentId()));
-            for(String s:idList){
-                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
-            }
-            model.addAttribute("attachmentList",attachmentList);
+        Long sectorId = userRepository.findSectorIdById(activity.getCreatedBy());
+        if (null != activity.getAttachmentId()) {
+            List<Attachment> attachmentList = attachmentService.getAttachmentListByIds(activity.getAttachmentId());
+            model.addAttribute("attachmentList", attachmentList);
         }
-        model.addAttribute("news",activity);
-        model.addAttribute("user",user);
+        model.addAttribute("news", activity);
+        model.addAttribute("sector", sectorRepository.findOne(sectorId));
         return "showNews";
     }
 
     /**
      * 获取分页排序的activity列表
+     *
      * @param model
      * @param pageable
      * @return
      */
     @RequestMapping(value = "/newsListShow")
-    public String newsList(Model model,Pageable pageable){
-        Page<Activity> list =  activityRepository.findAll(pageable);
-        model.addAttribute("pageable",list);
-        model.addAttribute("newsList",list.getContent());
-        model.addAttribute("pageUrl","/activity/newsListShow?size="+pageable.getPageSize()+"&sort=createdAt,desc");
+    public String newsList(Model model, Pageable pageable) {
+        Page<Activity> list = activityRepository.findAll(pageable);
+        model.addAttribute("pageable", list);
+        model.addAttribute("newsList", list.getContent());
+        model.addAttribute("pageUrl", "/activity/newsListShow?size=" + pageable.getPageSize() + "&sort=createdAt,desc");
         model.addAttribute("type", 2);
         return "newsList";
     }

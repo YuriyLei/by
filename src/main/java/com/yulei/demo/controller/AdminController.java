@@ -4,10 +4,7 @@ import com.yulei.demo.model.Activity;
 import com.yulei.demo.model.Image;
 import com.yulei.demo.model.Important;
 import com.yulei.demo.model.Notice;
-import com.yulei.demo.repository.ActivityRepository;
-import com.yulei.demo.repository.ImageRepository;
-import com.yulei.demo.repository.ImportantRepository;
-import com.yulei.demo.repository.NoticeRepository;
+import com.yulei.demo.repository.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+
+import static com.yulei.demo.common.BaseEntity.UNDELETED;
 
 /**
  * Created by lei.yu on 2016/4/21.
@@ -27,6 +26,8 @@ public class AdminController {
     private ImportantRepository importantRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private SectorRepository sectorRepository;
 @Autowired
 private ImageRepository imageRepository;
     /**
@@ -109,7 +110,8 @@ private ImageRepository imageRepository;
      */
     @RequiresPermissions("user:addUser")
     @RequestMapping(value="/addUserHtml")
-    public String addUserHtml(){
+    public String addUserHtml(Model model){
+        model.addAttribute("sectorList",sectorRepository.findAllByDeleted(UNDELETED));
         return "/admin/addUserHtml";
     }
     /**
@@ -127,5 +129,11 @@ private ImageRepository imageRepository;
     @RequestMapping(value="/roleListHtml")
     public String roleList(){
         return "/admin/roleList";
+    }
+
+    @RequiresPermissions("sector:addSector")
+    @RequestMapping("addSectorHtml")
+    public String toAddSector(){
+        return "/admin/addSector";
     }
 }

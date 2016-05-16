@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-05-13 15:43:33
+Date: 2016-05-16 09:54:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -129,19 +129,20 @@ CREATE TABLE `important` (
   `deleted` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` varchar(255) DEFAULT NULL,
-  `version` int(11) NOT NULL,
   `attachment_id` varchar(255) DEFAULT NULL,
   `content` longtext,
   `content_type` smallint(6) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of important
 -- ----------------------------
-INSERT INTO `important` VALUES ('1', null, null, '0', null, null, '0', null, '交付给', '0', '干嘛', '3');
+INSERT INTO `important` VALUES ('1', '2016-05-13 16:03:05', '1', '0', null, null, null, '交付给', '0', '干嘛', '3');
+INSERT INTO `important` VALUES ('2', '2016-05-13 16:01:19', '1', '0', null, null, null, '/upload/collegeNews/2016/2016-05\\test1.2016-05-13.doc', '1', 'test1', '3');
+INSERT INTO `important` VALUES ('3', '2016-05-13 16:19:54', '1', '0', null, null, null, '/upload/collegeNews/2016/2016-05\\test3.2016-05-13.doc', '1', 'test3', '3');
 
 -- ----------------------------
 -- Table structure for notice
@@ -197,35 +198,34 @@ CREATE TABLE `permission` (
   `deleted` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` bigint(20) DEFAULT NULL,
-  `version` int(11) DEFAULT NULL,
-  `permission_name` varchar(255) DEFAULT NULL,
-  `role_id` bigint(20) DEFAULT NULL,
+  `permission_name` varchar(255) NOT NULL,
   `permission_remark` varchar(255) DEFAULT NULL,
+  `permission_expression` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('1', null, null, null, null, null, null, 'user:edit', '1', '用户编辑');
-INSERT INTO `permission` VALUES ('2', null, null, null, null, null, null, 'user:look', '2', '查看用户');
-INSERT INTO `permission` VALUES ('3', null, null, null, null, null, null, 'user:addUser', '1', '添加用户');
-INSERT INTO `permission` VALUES ('4', null, null, null, null, null, null, 'user:updateUser', '1', '更新用户');
-INSERT INTO `permission` VALUES ('5', null, null, null, null, null, null, 'notice:addNotice', '1', '添加通知公告');
-INSERT INTO `permission` VALUES ('6', null, null, null, null, null, null, 'notice:uploadNotice', '1', '上传通知公告');
-INSERT INTO `permission` VALUES ('7', null, null, null, null, null, null, 'notice:addNoticeWithAttachment', '1', '添加带附件的通知公告');
-INSERT INTO `permission` VALUES ('8', null, null, null, null, null, null, 'activity:addActivity', '1', '添加学生活动');
-INSERT INTO `permission` VALUES ('9', null, null, null, null, null, null, 'activity:uploadActivity', '1', '上传学生活动');
-INSERT INTO `permission` VALUES ('10', null, null, null, null, null, null, 'activity:addActivityWithAttachment', '1', '添加带附件的学生活动');
-INSERT INTO `permission` VALUES ('11', null, null, null, null, null, null, 'user:look', '1', '查看用户');
-INSERT INTO `permission` VALUES ('12', null, null, null, null, null, null, 'important:addImportant', '1', '添加学院新闻');
-INSERT INTO `permission` VALUES ('13', null, null, null, null, null, null, 'important:uploadImportant', '1', '上传学院新闻');
-INSERT INTO `permission` VALUES ('14', null, null, null, null, null, null, 'important:addImportantWithAttachment', '1', '添加带附件的学院新闻');
-INSERT INTO `permission` VALUES ('15', null, null, null, null, null, null, 'role:look', '1', '查看角色');
-INSERT INTO `permission` VALUES ('16', null, null, null, null, null, null, 'role:addRole', '1', '添加角色');
-INSERT INTO `permission` VALUES ('17', null, null, null, null, null, null, 'important:addImportant', '3', '添加学院新闻');
-INSERT INTO `permission` VALUES ('18', null, null, null, null, null, null, 'important:uploadImportant', '3', '上传学院新闻');
-INSERT INTO `permission` VALUES ('19', null, null, null, null, null, null, 'important:addImportantWithAttachment', '3', '添加带附件的学院新闻');
+INSERT INTO `permission` VALUES ('1', null, null, null, null, null, 'user:edit', '用户编辑', '');
+INSERT INTO `permission` VALUES ('2', null, null, null, null, null, 'user:look', '查看用户', '');
+INSERT INTO `permission` VALUES ('3', null, null, null, null, null, 'user:addUser', '添加用户', '');
+INSERT INTO `permission` VALUES ('4', null, null, null, null, null, 'user:updateUser', '更新用户', '');
+INSERT INTO `permission` VALUES ('5', null, null, null, null, null, 'notice:addNotice', '添加通知公告', '');
+INSERT INTO `permission` VALUES ('6', null, null, null, null, null, 'notice:uploadNotice', '上传通知公告', '');
+INSERT INTO `permission` VALUES ('7', null, null, null, null, null, 'notice:addNoticeWithAttachment', '添加带附件的通知公告', '');
+INSERT INTO `permission` VALUES ('8', null, null, null, null, null, 'activity:addActivity', '添加学生活动', '');
+INSERT INTO `permission` VALUES ('9', null, null, null, null, null, 'activity:uploadActivity', '上传学生活动', '');
+INSERT INTO `permission` VALUES ('10', null, null, null, null, null, 'activity:addActivityWithAttachment', '添加带附件的学生活动', '');
+INSERT INTO `permission` VALUES ('11', null, null, null, null, null, 'role:deleteRole', '删除角色', '');
+INSERT INTO `permission` VALUES ('12', null, null, null, null, null, 'important:addImportant', '添加学院新闻', '');
+INSERT INTO `permission` VALUES ('13', null, null, null, null, null, 'important:uploadImportant', '上传学院新闻', '');
+INSERT INTO `permission` VALUES ('14', null, null, null, null, null, 'important:addImportantWithAttachment', '添加带附件的学院新闻', '');
+INSERT INTO `permission` VALUES ('15', null, null, null, null, null, 'role:look', '查看角色', '');
+INSERT INTO `permission` VALUES ('16', null, null, null, null, null, 'role:addRole', '添加角色', '');
+INSERT INTO `permission` VALUES ('17', null, null, null, null, null, 'permission:addPermission', '添加权限', '');
+INSERT INTO `permission` VALUES ('18', null, null, null, null, null, 'permission:look', '查看权限', '');
+INSERT INTO `permission` VALUES ('19', null, null, null, null, null, 'permission:delete', '删除权限', '');
 
 -- ----------------------------
 -- Table structure for position
@@ -272,6 +272,46 @@ INSERT INTO `role` VALUES ('4', '2016-05-12 15:38:34', '1', '0', '2016-05-12 15:
 INSERT INTO `role` VALUES ('5', '2016-05-12 15:39:00', '1', '0', '2016-05-12 15:38:55', '1', '学生活动管理员');
 
 -- ----------------------------
+-- Table structure for role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `role_permission`;
+CREATE TABLE `role_permission` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `deleted` varchar(255) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `permission_id` bigint(20) DEFAULT NULL,
+  `role_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_permission
+-- ----------------------------
+INSERT INTO `role_permission` VALUES ('1', '2016-05-16 09:25:17', '0', '0', null, null, '1', '1');
+INSERT INTO `role_permission` VALUES ('2', '2016-05-16 09:25:24', '0', '0', null, null, '2', '1');
+INSERT INTO `role_permission` VALUES ('3', '2016-05-16 09:25:27', '0', '0', null, null, '3', '1');
+INSERT INTO `role_permission` VALUES ('4', '2016-05-16 09:25:30', '0', '0', null, null, '4', '1');
+INSERT INTO `role_permission` VALUES ('5', '2016-05-16 09:25:33', '0', '0', null, null, '5', '1');
+INSERT INTO `role_permission` VALUES ('6', '2016-05-16 09:25:36', '0', '0', null, null, '6', '1');
+INSERT INTO `role_permission` VALUES ('7', '2016-05-16 09:25:39', '0', '0', null, null, '7', '1');
+INSERT INTO `role_permission` VALUES ('8', '2016-05-16 09:25:42', '0', '0', null, null, '8', '1');
+INSERT INTO `role_permission` VALUES ('9', '2016-05-16 09:25:44', '0', '0', null, null, '9', '1');
+INSERT INTO `role_permission` VALUES ('10', '2016-05-16 09:25:48', '0', '0', null, null, '10', '1');
+INSERT INTO `role_permission` VALUES ('11', '2016-05-16 09:25:50', '0', '0', null, null, '11', '1');
+INSERT INTO `role_permission` VALUES ('12', '2016-05-16 09:25:52', '0', '0', null, null, '12', '1');
+INSERT INTO `role_permission` VALUES ('13', '2016-05-16 09:25:55', '0', '0', null, null, '13', '1');
+INSERT INTO `role_permission` VALUES ('14', '2016-05-16 09:25:57', '0', '0', null, null, '14', '1');
+INSERT INTO `role_permission` VALUES ('15', '2016-05-16 09:26:04', '0', '0', null, null, '15', '1');
+INSERT INTO `role_permission` VALUES ('16', '2016-05-16 09:26:07', '0', '0', null, null, '16', '1');
+INSERT INTO `role_permission` VALUES ('17', '2016-05-16 09:26:09', '0', '0', null, null, '17', '1');
+INSERT INTO `role_permission` VALUES ('18', '2016-05-16 09:26:11', '0', '0', null, null, '18', '1');
+INSERT INTO `role_permission` VALUES ('19', '2016-05-16 09:26:13', '0', '0', null, null, '19', '1');
+INSERT INTO `role_permission` VALUES ('20', null, null, null, null, null, null, null);
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -294,7 +334,7 @@ CREATE TABLE `user` (
   `sector` varchar(255) DEFAULT NULL,
   `position_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -303,6 +343,8 @@ INSERT INTO `user` VALUES ('1', '2016-05-04 14:37:04', '0', '0', '2016-05-04 14:
 INSERT INTO `user` VALUES ('2', '2016-05-09 09:30:43', '1', '0', '2016-05-09 09:30:48', null, '本科', '你哈哈', '讲师', 'e10adc3949ba59abbe56e057f20f883e', null, 'yulei', '计算机', '130160085', '1994', '财务处', '2');
 INSERT INTO `user` VALUES ('3', '2016-05-11 14:32:36', '1', '0', '2016-05-12 15:39:17', null, '博士后', '范德萨发生', '院长', '6277a392a56d06ddf852daf2a0f36abb', null, '于磊磊', 'c++', '130160045', '1990', '教务处', '0');
 INSERT INTO `user` VALUES ('5', '2016-05-12 10:54:05', '1', '0', '2016-05-12 15:28:08', '1', '专科', '你好', '讲师', null, null, '鱼鱼泪', '软件工程', '130160100', '1994', '财务处', '0');
+INSERT INTO `user` VALUES ('6', '2016-05-16 09:15:37', '1', '0', null, '', '博士', '水电费水电费是', '水电费', 'e4cea1a16925953df6d855c456a4212e', null, 'yulll', 'jishuanji', '130160111', '0', '财务处', '0');
+INSERT INTO `user` VALUES ('7', '2016-05-16 09:17:59', '6', '0', null, null, null, null, null, '12a2ebc91fdcdc175c7b6d4b848eb3a8', null, 'kjhj', null, '130160101', '0', null, '0');
 
 -- ----------------------------
 -- Table structure for user_role

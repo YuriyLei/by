@@ -59,26 +59,4 @@
 <!--<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>-->
 <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
 
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" th:src="@{/js/jquery.bootgrid.min.js}"></script>
-<script type="text/javascript" charset="utf8" th:src="@{/js/jquery.bootgrid.fa.min.js}"></script>
-<script type="text/javascript" charset="utf8" th:src="@{/js/jquery.md5.min.js}"></script>
-<script>
-    $(function(){
-        $("#submitBtn").click(function(){
-            console.log("添加用户");
-            var userCode = $("#userCode").val();
-            var password = $.md5(userCode);
-            console.log(password);
-            var realName = $("#realName").val();
-            $.post("/user/addUser",
-                    {
-                        userCode:userCode,
-                        password:password,
-                        realName:realName
-                    })
-        })
-    })
-</script>
-
 </html>

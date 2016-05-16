@@ -9,7 +9,9 @@ import com.yulei.demo.model.Important;
 import com.yulei.demo.model.User;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.ImportantRepository;
+import com.yulei.demo.repository.SectorRepository;
 import com.yulei.demo.repository.UserRepository;
+import com.yulei.demo.service.AttachmentService;
 import com.yulei.demo.service.ImportantService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,10 @@ public class ImportantController {
     private UserRepository userRepository;
     @Autowired
     private Result result;
+    @Autowired
+    private SectorRepository sectorRepository;
+    @Autowired
+    private AttachmentService attachmentService;
 @Autowired
 private AttachmentRepository attachmentRepository;
     /**
@@ -144,16 +150,12 @@ private AttachmentRepository attachmentRepository;
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Important important = importantService.findOne(id);
-        User user = userRepository.findSectorById(important.getCreatedBy());
+        Long sectorId = userRepository.findSectorIdById(important.getCreatedBy());
         if(null != important.getAttachmentId()) {
-            List<Attachment> attachmentList = new ArrayList<Attachment>();
-            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(important.getAttachmentId()));
-            for(String s:idList){
-                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
-            }
+            List<Attachment> attachmentList = attachmentService.getAttachmentListByIds(important.getAttachmentId());
             model.addAttribute("attachmentList",attachmentList);
         }
-        model.addAttribute("user",user);
+        model.addAttribute("sector",sectorRepository.findOne(sectorId));
         model.addAttribute("news",important);
         return "showNews";
     }

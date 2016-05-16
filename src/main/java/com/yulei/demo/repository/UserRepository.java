@@ -11,7 +11,8 @@ import java.util.List;
  * Created by lei.yu on 2016/4/22.
  */
 public interface UserRepository extends BaseRepository<User, Long> {
-    User findSectorById(Long id);
+    @Query("select u.sectorId from User u where u.id=:id")
+    Long findSectorIdById(@Param("id") Long id);
 
     User findByUserCodeAndDeleted(String userCode, String deleted);
 

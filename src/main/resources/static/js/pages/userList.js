@@ -5,15 +5,7 @@ $(document).ready(function(){
     var grid = $("#grid-keep-selection").bootgrid({
         ajax: true,
         post:
-            //function ()
         {
-            //current: 1,
-           // rowCount:2,
-            /* To accumulate custom parameter with the request object */
-            // return {
-            //     current: 1,
-            //     rowCount:1
-            // };
         },
         url: "../user/userList",
         selection: true,
@@ -24,7 +16,8 @@ $(document).ready(function(){
             "link": function(column, row)
             {
                // return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
-                return "<a href=\"#\">" +"详细信息"+ "</a>";
+                var url = "/user/userDetail/"+row.id;
+                return "<a target='_blank' href='"+url+"'>" +"详细信息"+ "</a>";
             },
             "commands": function(column, row)
             {
@@ -43,7 +36,6 @@ $(document).ready(function(){
         }).end().find(".command-delete").on("click", function(e)
         {
             var id = $(this).data("row-id");
-            //window.location.href = "/user/delete/"+id;
             $.ajax({
                 url:"/user/delete/"+id,
                 method:"post",

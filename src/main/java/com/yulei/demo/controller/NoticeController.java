@@ -5,10 +5,13 @@ import com.google.common.collect.Lists;
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Attachment;
 import com.yulei.demo.model.Notice;
+import com.yulei.demo.model.Sector;
 import com.yulei.demo.model.User;
 import com.yulei.demo.repository.AttachmentRepository;
 import com.yulei.demo.repository.NoticeRepository;
+import com.yulei.demo.repository.SectorRepository;
 import com.yulei.demo.repository.UserRepository;
+import com.yulei.demo.service.AttachmentService;
 import com.yulei.demo.service.NoticeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,10 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
     @Autowired
+    private SectorRepository sectorRepository;
+    @Autowired
+    private AttachmentService attachmentService;
+    @Autowired
     private NoticeRepository noticeRepository;
     @Autowired
     private Result result;
@@ -58,7 +65,6 @@ public class NoticeController {
     public Result addNotice(@RequestBody Notice notice){
         notice.setType(1);
         notice.setCreatedAt(new Date());
-        System.out.println(notice.getCreatedAt());
         result.setStatus(noticeRepository.save(notice)!=null?1:0);
         return result;
     }
@@ -145,17 +151,14 @@ public class NoticeController {
     @RequestMapping(value="readOne/{id}")
     public String readOneNews(@PathVariable long id, Model model){
         Notice notice = noticeService.findOne(id);
-        User user = userRepository.findSectorById(notice.getCreatedBy());
+        Long sectorId = userRepository.findSectorIdById(notice.getCreatedBy());
+
         if(null!=notice.getAttachmentId()) {
-            List<Attachment> attachmentList = new ArrayList<Attachment>();
-            List<String> idList= Lists.newArrayList(Splitter.on(";").trimResults().omitEmptyStrings().split(notice.getAttachmentId()));
-            for(String s:idList){
-                attachmentList.add(attachmentRepository.findOne( Long.parseLong(s)));
-            }
+            List<Attachment> attachmentList = attachmentService.getAttachmentListByIds(notice.getAttachmentId());
             model.addAttribute("attachmentList",attachmentList);
         }
         model.addAttribute("news",notice);
-        model.addAttribute("user",user);
+        model.addAttribute("sector",sectorRepository.findOne(sectorId));
         return "showNews";
     }
 

@@ -33,7 +33,7 @@
                         <div id="news" th:object="${news}" th:utext="*{content}"></div>
                         <div class="nameOn">
                             <div id="author" th:object="${user}" >
-                                <div th:utext="*{sector}"></div>
+                                <div th:utext="${sector.sectorName}"></div>
                             </div>
                             <div id="datetime" th:object="${news}" >
                                 <div th:utext="*{createdAt}"></div>

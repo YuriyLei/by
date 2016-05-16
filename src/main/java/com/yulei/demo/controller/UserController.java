@@ -40,6 +40,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @RequiresPermissions("user:edit")
     @RequestMapping(value="editHtml/{id}")
     public String edit(@PathVariable Long id,Model model){
         logger.info("------进入用户信息修改-------");
@@ -82,6 +83,14 @@ public class UserController {
         model.addAttribute("user",user);
         return "/admin/selfInfo";
     }
+    @RequiresPermissions("user:look")
+    @RequestMapping("/userDetail/{id}")
+    public String getUserDetailInfo(@PathVariable Long id,Model model){
+        User user = userRepository.findOne(id);
+        user.setPassword(null);
+        model.addAttribute("user",user);
+        return "/admin/selfInfo";
+    }
     /**
      * 添加用户
      * @return
@@ -98,6 +107,7 @@ public class UserController {
         }
         user.setCreatedBy((((User) session.getAttribute("user")).getId()));
         user.setCreatedAt(new Date());
+        user.setPortrait("/img/portrait/default.png");
         user = userService.addUser(user);
         if(user!=null)
             result.setStatus(1);
