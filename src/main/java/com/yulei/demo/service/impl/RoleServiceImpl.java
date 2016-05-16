@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,17 @@ public class RoleServiceImpl implements RoleService {
             list.add(per.getPermissionName());
         }
         return list;
+    }
+
+    public Role updateRoleByDeleted(Long id, Long user, String deleted) {
+        Role role = roleRepository.findOne(id);
+        if(role==null){
+            return role;
+        }
+        role.setUpdatedBy(user);
+        role.setDeleted(deleted);
+        role.setUpdatedAt(new Date());
+        return roleRepository.saveAndFlush(role);
     }
 
     public List<Permission> getPermissionList(Role role){

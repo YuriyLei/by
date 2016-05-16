@@ -118,6 +118,7 @@ private ImageRepository imageRepository;
      * 进入添加角色页面
      * @return
      */
+    @RequiresPermissions("role:addRole")
     @RequestMapping(value="/addRoleHtml")
     public String addRoleHtml(){
         return "/admin/addRole";
@@ -126,6 +127,7 @@ private ImageRepository imageRepository;
      * 进入角色列表页面
      * @return
      */
+    @RequiresPermissions("role:look")
     @RequestMapping(value="/roleListHtml")
     public String roleList(){
         return "/admin/roleList";

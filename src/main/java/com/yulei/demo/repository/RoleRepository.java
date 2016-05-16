@@ -13,4 +13,5 @@ public interface RoleRepository extends BaseRepository<Role,Long>{
     List<Role> findAllByDeleted(String undeleted);
     @Query(value = "select count(*) from role r where r.deleted=0 ",nativeQuery = true)
     int countNotDelete();
+
 }

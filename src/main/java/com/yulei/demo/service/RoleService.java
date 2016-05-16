@@ -10,4 +10,6 @@ import java.util.Collection;
 public interface RoleService {
 
     Collection<String> getPermissionsName(Role role);
+
+    Role updateRoleByDeleted(Long id, Long user, String undeleted);
 }

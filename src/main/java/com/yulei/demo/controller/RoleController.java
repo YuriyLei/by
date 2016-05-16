@@ -2,11 +2,13 @@ package com.yulei.demo.controller;
 
 import com.yulei.demo.common.Result;
 import com.yulei.demo.model.Role;
+import com.yulei.demo.model.User;
 import com.yulei.demo.repository.RoleRepository;
 import com.yulei.demo.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,7 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.yulei.demo.common.BaseEntity.DELETED;
 import static com.yulei.demo.common.BaseEntity.UNDELETED;
+import static com.yulei.demo.controller.ShiroController.getSession;
 
 /**
  * Created by lei.yu on 2016/5/10.
@@ -29,7 +33,13 @@ public class RoleController {
     @Autowired
     private Result result;
 
-    @RequiresPermissions("role:roleList")
+    /**
+     * 获得角色列表
+     * @param current
+     * @param rowCount
+     * @return
+     */
+    @RequiresPermissions("role:look")
     @RequestMapping("roleList")
     @ResponseBody
     public Map<String, Object> roleList(int current, int rowCount) {
@@ -41,6 +51,12 @@ public class RoleController {
         map.put("total", total);
         return map;
     }
+
+    /**
+     * 添加角色
+     * @param role
+     * @return
+     */
     @RequiresPermissions("role:addRole")
     @RequestMapping("addRole")
     @ResponseBody
@@ -48,6 +64,22 @@ public class RoleController {
         if (roleRepository.save(role) != null)
             result.setStatus(1);
         result.setStatus(0);
+        return result;
+    }
+
+    /**
+     * 删除角色
+     * @param id
+     * @return
+     */
+    @RequiresPermissions("role:deleteRole")
+    @RequestMapping("deleteRole/{id}")
+    @ResponseBody
+    public Result deleteRole(@PathVariable Long id){
+        result.setStatus(0);
+        Role role =  roleService.updateRoleByDeleted(id,((User) getSession().getAttribute("user")).getId(),DELETED);
+        if(role!=null)
+            result.setStatus(1);
         return result;
     }
 }
