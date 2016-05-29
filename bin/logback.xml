@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <property name="LOG_FILE" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/all.log"/>
-  <property name="LOG_FILE_ERR" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/error.log"/>
+  <property name="LOG_FILE" value="${LOG_PATH}/all.log"/>
+  <property name="LOG_FILE_ERR" value="${LOG_PATH}/error.log"/>
 
   <include resource="org/springframework/boot/logging/logback/defaults.xml" />
   <include resource="org/springframework/boot/logging/logback/console-appender.xml" />

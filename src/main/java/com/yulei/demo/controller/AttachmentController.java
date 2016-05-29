@@ -37,6 +37,14 @@ public class AttachmentController {
     @Autowired
     private Result result;
 
+    /**
+     * 上传附件
+     * @param request
+     * @param response
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @RequestMapping(value = "uploadAttachment",method = RequestMethod.POST)
     @ResponseBody
     public Result upLoad(HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {

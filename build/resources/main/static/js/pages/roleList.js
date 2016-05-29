@@ -56,7 +56,7 @@ $(document).ready(function(){
         {
             rowIds.push(rows[i].id);
         }
-        alert("Select: " + rowIds.join(","));
+        console.log("Select: " + rowIds.join(","));
     }).on("deselected.rs.jquery.bootgrid", function(e, rows)
     {
         var rowIds = [];
@@ -64,6 +64,6 @@ $(document).ready(function(){
         {
             rowIds.push(rows[i].id);
         }
-        alert("Deselect: " + rowIds.join(","));
+        console.log("Deselect: " + rowIds.join(","));
     });
 });
