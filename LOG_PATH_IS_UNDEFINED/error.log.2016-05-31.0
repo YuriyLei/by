@@ -1,0 +1,5 @@
+2016-05-31 08:38:50.538 ERROR 6756 --- [http-nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : Communications link failure
+
+The last packet successfully received from the server was 30,817,637 milliseconds ago.  The last packet sent successfully to the server was 1 milliseconds ago.
+2016-05-31 08:39:00.189 ERROR 6756 --- [http-nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.
+2016-05-31 08:40:52.087 ERROR 6756 --- [http-nio-8080-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : No operations allowed after connection closed.

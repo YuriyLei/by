@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>新闻列表</title>
+    <style>
+        .leftSecondList{cursor:pointer;border-bottom:1px solid #CFCED0;diaplay:inline-block;text-decoration: none;width:100%;height:50px;text-align: center;line-height:50px;vertical-align: middle;}
+        .leftSecondList:hover{color:#0e90d2;background-color: #e5e5e5;text-decoration:none;}
+        .currentChoose{background-color:#e9e9e9;}
+        .firstLabel{border-bottom:1px solid #CFCED0;line-height:50px;vertical-align: middle;height:50px;font-size:24px;font-weight:700;}
+        .list-group-item .datatime{float:right;margin-right:5px;}
+        .list-group-item .title{margin-left:15px;text-overflow:ellipsis;overflow: hidden;  white-space: nowrap;max-width:90%}
+    </style>
+</head>
+<body>
+<div th:include="/head"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row-fluid">
+                <div class="col-md-4">
+                    <div class="firstLabel" th:text="${leftInfo.firstView.viewName}"></div>
+                    <th:block th:each="view:${leftInfo.secondView}">
+                        <div class="leftSecondList" th:if="${view.id == leftInfo.currentView}" data-id="0" th:attr="data-id=${view.id}" th:classappend="currentChoose" th:text="${view.viewName}"></div>
+                        <div class="leftSecondList" th:unless="${view.id == leftInfo.currentView}" data-id="0" th:attr="data-id=${view.id}" th:text="${view.viewName}"></div>
+                    </th:block>
+                </div>
+                <div class="col-md-8">
+                    <div class="list-group" style="width: 100%;">
+                        <th:block th:each="news: ${newsList}">
+                            <a class="list-group-item" th:href="@{/news/readOne/{id}(id=${news.id})}">
+                                <span class="title" th:text="${news.title}"></span>
+                                <span class="datatime" th:text="${news.createdAt}"></span>
+                            </a>
+                        </th:block>
+                    </div>
+                    <th:block th:if="${pageable.getTotalPages() gt 1}">
+                        <nav th:with="current=${(pageable.getNumber())+1},total=${pageable.getTotalPages()}">
+                            <ul class="pagination pagination-lg">
+                                <li th:if="${current!=1}">
+                                    <a th:href="@{${pageUrl}(page=${current-1})}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li th:if="${current==1 and total eq 1}" class="active">
+                                    <a th:href="@{${pageUrl}(page=0)}" >
+                                        <span th:text="1"></span><span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <th:block th:unless="${total eq 1}">
+                                    <li th:if="${(current-3)gt 0  and (current+3) le total}" th:each="i:${#numbers.sequence(current-3,current+3)}" th:class="${current == i}? 'active'" >
+                                        <a th:href="@{${pageUrl}(page=${i-1})}" >
+                                            <span th:text="${i}"></span><span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${(current-3)gt 0 and (current+3) gt total}" th:each="i:${#numbers.sequence(current-3,total)}" th:class="${current == i}? 'active'" >
+                                        <a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${(current-3)le 0 and (current+3) gt total}" th:each="i:${#numbers.sequence(1,total)}" th:class="${current == i}? 'active'" >
+                                        <a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${(current-3)le 0 and (current+3) le total }" th:each="i:${#numbers.sequence(1,current+3)}" th:class="${current == i}? 'active'" >
+                                        <a th:href="@{${pageUrl}(page=${i-1})}"  th:text="${i}">
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                </th:block>
+                                <li th:if="${current!=total}">
+                                    <a th:href="@{${pageUrl}(page=${current+1})}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $(".leftSecondList").click(function(){
+            var id = $(this).attr("data-id");
+            window.location.href="/news/newsListShow/"+id;
+        })
+    })
+</script>
+</body>
+</html>

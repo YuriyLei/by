@@ -15,7 +15,6 @@ include 'shared'
 include 'api'
 include 'services:webservice'
 */
-
 rootProject.name = 'demo'
-rootProject.name = 'demo'
+include 'main','service','dal'
 

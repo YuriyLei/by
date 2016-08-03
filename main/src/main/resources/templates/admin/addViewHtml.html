@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="zh">
+    <meta charset="UTF-8" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--<link th:href="@{/css/easydropdown.css}" rel="stylesheet"/>-->
+    <title>添加栏目</title>
+</head>
+<body>
+<section>
+    <th:block th:include="adminAx/leftSide"></th:block>
+    <div class="main-content" >
+        <th:block th:include="adminAx/headSide">
+        </th:block>
+        <div class="wrapper">
+            <div class="container"  style="width:90%;overflow-x:hidden;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>栏目类型</label>
+                        <select class="dropdown" id="parentId" style="width:200px;">
+                            <option value="10000" selected="selected">请选择一级标题</option>
+                            <option value="0" >添加一级标题</option>
+                            <th:block th:each="firstType:${firstTypeList}">
+                                <option th:value="${firstType.id}" th:text="${firstType.viewName}">选项</option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="viewName">栏目名称</label>
+                        <input type="text" id="viewName" class="form-control" placeholder="请输入名称"/>
+                    </div>
+                    <br/>
+                    <div class="col-md-12" style="margin-top:15px;">
+                        <button class="btn btn-primary" id="submmitBtn">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+</section>
+
+<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+<!--<script th:src="@{/js/jquery.easydropdown.min.js}" type="text/javascript"></script>-->
+<script type="text/javascript">
+    $(function(){
+        $("#submmitBtn").click(function(){
+            var parentId = $("#parentId").val();
+            var viewName = $("#viewName").val();
+            if(parentId != 10000){
+                $.ajax({
+                    url:"/view/saveViewFinder",
+                    type:"post",
+                    data:{
+                        parentId:parentId,
+                        viewName:viewName
+                    },
+                    dataType:"json",
+                    success:function(result){
+                        if(result.status==1){
+                            window.refresh;
+                            alert("添加成功");
+                        }else{
+                            alert("添加失败");
+                        }
+                    }
+                })
+            }else{
+                alert("请选择一级栏目");
+            }
+        })
+
+    })
+</script>
+</body>
+</html>

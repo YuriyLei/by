@@ -1,0 +1,97 @@
+<link th:href="@{/adminAx/css/style.css}" rel="stylesheet"/>
+<link th:href="@{/adminAx/css/style-responsive.css}" rel="stylesheet"/>
+<!-- left side start-->
+<div class="left-side sticky-left-side">
+
+    <!--logo and iconic logo start-->
+    <div class="logo">
+        <a th:href="@{/ahome}"><img th:src="@{/static/favicon.ico}" alt=""/></a>
+        <a href="/a/ax" th:href="@{/ahome}">后台管理</a>
+    </div>
+
+    <!--logo and iconic logo end-->
+
+    <div class="left-side-inner">
+
+        <!-- visible to small devices only -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">
+            <div class="media logged-user">
+                <img alt="" th:src="@{/adminAx/images/photos/user-avatar.png}" class="media-object"/>
+                <div class="media-body">
+                    <h4><a href="#">John Doe</a></h4>
+                    <span>"Hello There..."</span>
+                </div>
+            </div>
+
+            <h5 class="left-nav-title">账户信息</h5>
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a href="#"><i class="fa fa-user"></i> <span>个人信息</span></a></li>
+                <li><a href="#"><i class="fa fa-cog"></i> <span>设置</span></a></li>
+                <li><a href="#"><i class="fa fa-sign-out"></i> <span>退出登录</span></a></li>
+            </ul>
+        </div>
+
+        <!--sidebar nav start-->
+        <ul class="nav nav-pills nav-stacked custom-nav">
+            <li class="active"><a th:href="@{/ahome}"><i class="fa fa-home"></i> <span>首页</span></a></li>
+            <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>新闻管理</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="/addNews">添加新闻</a></li>
+                    <li><a href="/upNews">上传新闻</a></li>
+                    <!--<li><a href="/upIm">上传学院新闻</a></li>-->
+                    <!--<li><a href="/upNo">上传通知公告</a></li>-->
+                    <!--<li><a href="/upAc">上传学生活动</a></li>-->
+                    <li><a href="/changeNews">修改新闻</a></li>
+                    <li><a href="/deleteNews">删除新闻</a></li>
+                </ul>
+            </li>
+            <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>用户管理</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="/user/selfInfo">个人信息</a></li>
+                    <li><a href="/userL">用户列表</a></li>
+                    <li><a href="/addUserHtml">添加用户</a></li>
+                </ul>
+            </li>
+            <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>角色管理</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="/roleListHtml">查看角色</a></li>
+                    <li><a href="/addRoleHtml">添加角色</a></li>
+                </ul>
+            </li>
+            <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>部门管理</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="/sector/showSectorHtml">查看部门</a></li>
+                    <li><a href="/addSectorHtml">添加部门</a></li>
+                </ul>
+            </li>
+            <li class="menu-list"><a href="#"><i class="fa fa-map-marker"></i> <span>栏目管理</span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="/view/addView">添加栏目</a></li>
+                    <li><a href="/view/toViewList">栏目列表</a></li>
+                </ul>
+            </li>
+            <!--<li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>权限管理</span></a>-->
+                <!--<ul class="sub-menu-list">-->
+                    <!--<li><a href="mail.html"></a></li>-->
+                    <!--<li><a href="mail_compose.html"> Compose Mail</a></li>-->
+                    <!--<li><a href="mail_view.html"> View Mail</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+
+            <li><a href="fontawesome.html" th:href="@{/logout}"><i class="fa fa-bullhorn"></i> <span>退出登录</span></a></li>
+
+        </ul>
+        <!--sidebar nav end-->
+
+    </div>
+</div>
+<!-- left side end-->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-2.2.3.min.js}" type="text/javascript"></script>
+<script th:src="@{/adminAx/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/adminAx/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/adminAx/js/modernizr.min.js}"></script>
+<script th:src="@{/adminAx/js/jquery.nicescroll.js}"></script>
+<!--common scripts for all pages-->
+<script th:src="@{/adminAx/js/scripts.js}"></script>

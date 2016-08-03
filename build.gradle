@@ -1,112 +1,91 @@
 buildscript {
-    ext {
-        springBootVersion = '1.2.2.RELEASE'
-    }
     repositories {
+        mavenLocal()
+        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
+def buildTime = new Date().format("yyyyMMddHHmm")
+def buildDate = new Date().format("yyyyMMdd")
 
-jar {
-    baseName = 'ng-spring-boot'
-    version = '0.0.1-SNAPSHOT'
-}
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
-repositories {
-    mavenCentral()
-    maven { url "https://repo.spring.io/libs-release" }
+configurations.all {
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
-dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile('org.springframework:spring-jdbc:4.1.5.RELEASE')
-    compile('mysql:mysql-connector-java:5.1.34')
-    compile('com.google.guava:guava:19.0')
-    compile('org.apache.commons:commons-lang3:3.3.2')
-    compile('ma.glasnost.orika:orika-core:1.4.6')
-    compile('com.mysema.querydsl:querydsl-core:3.6.0')
-    compile('com.mysema.querydsl:querydsl-jpa:3.6.0')
-    compile('com.mysema.querydsl:querydsl-sql:3.6.0')
-    compile('commons-fileupload:commons-fileupload:1.3.1')
-    compile('org.apache.poi:poi:3.14')
-    compile('org.apache.poi:poi-ooxml:3.14')
-    compile('org.apache.poi:poi-ooxml-schemas:3.14')
-    compile('org.apache.poi:poi-contrib:3.6')
-    compile('org.apache.poi:poi-scratchpad:3.14')
-    compile('org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:1.0.1')
-    compile('org.apache.xmlbeans:xmlbeans:2.3.0')
-    compile('org.apache.shiro:shiro-core:1.2.4')
-    compile('org.apache.shiro:shiro-spring:1.2.4')
-    compile('org.apache.shiro:shiro-encache:1.2.4')
-    compile('org.apache.shiro:shiro-ehcache:1.2.4')
-    compile('org.apache.shiro:shiro-web:1.2.4')
-    runtime("org.hsqldb:hsqldb")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-}
+configure(subprojects) { project ->
+    apply from: file("${rootProject.rootDir}/gradle/shared.gradle")
+    apply plugin: 'spring-boot'
+    bootRepackage.enabled = false
 
-eclipse {
-    classpath {
-         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group = 'com.yulei.demo'
+    version = '1.0.0'
+
+    configurations {
+        // replaced with jcl-over-slf4j
+        all*.exclude group: 'commons-logging', module: 'commons-logging'
+        // replaced with log4j-over-slf4j
+        all*.exclude group: 'log4j', module: 'log4j'
+        // replaced
+        // all*.exclude group: 'org.jboss.logging', module: 'jboss-logging'
+        // replaced with custom
+        // all*.exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+
+//    eclipse.classpath {
+ //      containers.remove 'org.eclipse.jdt.launching.JRE_CONTAINER'
+ //       containers "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-${javaVersion}"
+  //  }
+
+    dependencies {
+//        compile 'org.springframework.boot:spring-boot-starter-cache'
+        compile 'org.springframework.boot:spring-boot-configuration-processor'
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+        compile "com.alibaba:druid:${druid_version}"
+//        compile "com.alibaba:fastjson:${fastjson_version}"
+        compile "com.google.guava:guava:${guava_version}"
+        compile "org.apache.commons:commons-lang3:${commons_lang3_version}"
+
+        //compile "org.jasypt:jasypt:${jasypt_version}"
+        compile "mysql:mysql-connector-java:${mysql_connector_java_version}"
+        compile "org.hibernate:hibernate-ehcache:4.3.11.Final"
+
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
-}
-group 'com.yulei'
-version '1.0-SNAPSHOT'
+configure(subprojects.findAll { it.name.endsWith('-main') }) {
+    apply plugin: 'war'
+    bootRepackage.enabled = true
 
-apply plugin: 'ear'
-apply plugin: 'java'
-apply plugin: 'war'
-
-sourceCompatibility = 1.5
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    // The following dependencies will be the ear modules and
-    // will be placed in the ear root
-    // deploy project(':war')
-
-    // The following dependencies will become ear libs and will
-    // be placed in a dir configured via the libDirName property
-    // earlib group: 'log4j', name: 'log4j'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-}
-
-ear {
-    appDirName 'src/main/app'  // use application metadata found in this folder
-    // put dependent libraries into APP-INF/lib inside the generated EAR
-    libDirName 'APP-INF/lib'
-    deploymentDescriptor {  // custom entries for application.xml:
-//      fileName = "application.xml"  // same as the default value
-//      version = "6"  // same as the default value
-//      applicationName = "customear"
-        initializeInOrder = true
-//      displayName = "Custom Ear"  // defaults to project.name
-        // defaults to project.description if not set
-//      description = "My customized EAR for the Gradle documentation"
-//      libraryDirectory = "APP-INF/lib"  // not needed, above libDirName setting does this
-//      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
-//      webModule("my.war", "/")  // won't deploy as my.war isn't deploy dependency
-//      securityRole "admin"
-//      securityRole "superadmin"
+    war {
+        baseName = "demo"
+        classifier = buildTime
+        extension = "zip"
     }
+
+    springBoot {
+        mainClass = "${project.group}.Application"
+    }
+
+    bootRepackage {
+        mainClass = "${project.group}.Application"
+    }
+
 }

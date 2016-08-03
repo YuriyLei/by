@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dal/dal.iml" filepath="$PROJECT_DIR$/.idea/modules/dal/dal.iml" group="dal" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dal/dal_main.iml" filepath="$PROJECT_DIR$/.idea/modules/dal/dal_main.iml" group="dal" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dal/dal_test.iml" filepath="$PROJECT_DIR$/.idea/modules/dal/dal_test.iml" group="dal" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/demo.iml" filepath="$PROJECT_DIR$/.idea/modules/demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/demo_main.iml" group="demo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/demo_test.iml" group="demo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/main.iml" filepath="$PROJECT_DIR$/.idea/modules/main/main.iml" group="main" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/main_main.iml" filepath="$PROJECT_DIR$/.idea/modules/main/main_main.iml" group="main" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/main_test.iml" filepath="$PROJECT_DIR$/.idea/modules/main/main_test.iml" group="main" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" group="service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_main.iml" group="service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_test.iml" group="service" />
     </modules>
   </component>
 </project>

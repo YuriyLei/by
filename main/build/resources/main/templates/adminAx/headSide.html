@@ -1,0 +1,60 @@
+<!-- header section start-->
+<div class="header-section">
+
+    <!--toggle button start-->
+    <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+    <!--toggle button end-->
+
+    <!--search start-->
+    <form class="searchform" action="index.html" method="post">
+        <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+    </form>
+    <!--search end-->
+
+    <!--notification menu start -->
+    <div class="menu-right">
+        <ul class="notification-menu">
+            <li>
+                <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="badge">2</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-head pull-right">
+                    <h5 class="title">消息</h5>
+                    <ul class="dropdown-list normal-list">
+                        <li class="new">
+                            <a href="">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                <span class="name">新闻修改通知</span>
+                                <em class="small">你发布的新闻被修改了</em>
+                            </a>
+                        </li>
+                        <li class="new">
+                            <a href="">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                <span class="name">账户修改通知</span>
+                                <em class="small">管理员修改了您的权限</em>
+                            </a>
+                        </li>
+                        <li class="new"><a href="">查看所有消息</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <img th:src="@{${session.user.portrait}}" alt="" style="height:30px;"/>
+                    <th:block th:text="${session.user.realName}"></th:block>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                    <li><a href="#" th:href="@{/user/selfInfo}"><i class="fa fa-user"></i>个人信息</a></li>
+                    <!--<li><a href="#"><i class="fa fa-cog"></i>  Settings</a></li>-->
+                    <li><a href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i>退出登录</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!--notification menu end -->
+</div>
+<!-- header section end-->
